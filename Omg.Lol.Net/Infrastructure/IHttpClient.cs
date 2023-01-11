@@ -7,6 +7,8 @@ public interface IHttpClient
 {
     public Task<HttpResponseMessage> RequestAsync(HttpRequestMessage requestMessage);
 
+    public Task<HttpResponseMessage> GetAsync(string url);
+
     public Task<HttpResponseMessage> GetAsync(string url, string bearerToken);
 
     public Task<HttpResponseMessage> PostAsync(string url, string bearerToken, HttpContent content);

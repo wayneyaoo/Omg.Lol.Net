@@ -14,6 +14,9 @@ public class DefaultHttpClient : IHttpClient
     public async Task<HttpResponseMessage> RequestAsync(HttpRequestMessage requestMessage)
         => await HttpClient.Value.SendAsync(requestMessage).ConfigureAwait(false);
 
+    public Task<HttpResponseMessage> GetAsync(string url)
+        => this.SendInternalAsync(url, HttpMethod.Get);
+
     public Task<HttpResponseMessage> GetAsync(string url, string bearerToken)
         => this.SendInternalAsync(url, HttpMethod.Get, bearerToken);
 
@@ -29,7 +32,7 @@ public class DefaultHttpClient : IHttpClient
     private Task<HttpResponseMessage> SendInternalAsync(
         string url,
         HttpMethod method,
-        string bearer,
+        string? bearer = null,
         HttpContent? content = null)
     {
         var message = new HttpRequestMessage()
@@ -43,7 +46,11 @@ public class DefaultHttpClient : IHttpClient
             message.Content = content;
         }
 
-        message.Headers.Authorization = new AuthenticationHeaderValue(BearerAuth, bearer);
+        if (bearer is not null)
+        {
+            message.Headers.Authorization = new AuthenticationHeaderValue(BearerAuth, bearer);
+        }
+
         return this.RequestAsync(message);
     }
 }

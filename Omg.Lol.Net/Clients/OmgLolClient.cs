@@ -8,6 +8,8 @@ public class OmgLolClient : IOmgLolClient, ITokenBearer
 {
     public string Token { get; set; }
 
+    public string Url { get; set; }
+
     public IAccountClient AccountClient { get; }
 
     public IAddressClient AddressClient { get; }

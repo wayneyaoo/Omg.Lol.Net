@@ -18,11 +18,19 @@ public class ApiServerCommunicationHandler : IApiServerCommunicationHandler
     public async Task<T> GetAsync<T>(string url, string bearerToken)
         => await this.SendInternalAsync<T>(this.httpClient.Value.GetAsync, url, bearerToken);
 
+    public async Task<T> GetAsync<T>(string url)
+        => await this.SendInternalAsync<T>(this.httpClient.Value.GetAsync, url);
+
     public async Task<T> PostAsync<T>(string url, string bearerToken, string content)
         => await this.SendInternalAsync<T>(this.httpClient.Value.PostAsync, url, bearerToken, content);
 
     public async Task<T> DeleteAsync<T>(string url, string bearerToken)
         => await this.SendInternalAsync<T>(this.httpClient.Value.DeleteAsync, url, bearerToken);
+
+    private async Task<T> SendInternalAsync<T>(
+        Func<string, Task<HttpResponseMessage>> method,
+        string url)
+        => await this.ResponseTransformation<T>(await method(url));
 
     private async Task<T> SendInternalAsync<T>(
         Func<string, string, Task<HttpResponseMessage>> method,

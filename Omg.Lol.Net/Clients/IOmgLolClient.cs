@@ -1,8 +1,9 @@
 ﻿namespace Omg.Lol.Net.Clients;
 
 using Omg.Lol.Net.Clients.Abstract;
+using Omg.Lol.Net.Infrastructure;
 
-public interface IOmgLolClient
+public interface IOmgLolClient : IApiInfoCarrier
 {
     public IAccountClient AccountClient { get; }
 

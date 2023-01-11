@@ -1,7 +1,6 @@
 ﻿namespace Omg.Lol.Net.Clients;
 
 using Omg.Lol.Net.Clients.Abstract;
-using Omg.Lol.Net.Clients.Implementation;
 using Omg.Lol.Net.Infrastructure;
 
 public class OmgLolClient : IOmgLolClient, ITokenBearer

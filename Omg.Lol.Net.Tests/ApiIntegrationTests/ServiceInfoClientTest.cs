@@ -1,28 +1,13 @@
 ﻿namespace Omg.Lol.Net.Tests.ApiIntegrationTests;
 
-using System;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using Omg.Lol.Net.Clients.Implementation;
 using Omg.Lol.Net.Infrastructure;
 
 [TestFixture]
-public class ServiceStatisticsTest
+public class ServiceInfoClientTest
 {
-    // private static string API_KEY;
-    //
-    // [OneTimeSetUp]
-    // public void ApiKeyRetrieve()
-    // {
-    //     var key = Environment.GetEnvironmentVariable(Constants.API_KEY_ENV_VARIABLE);
-    //     if (key is null)
-    //     {
-    //         Assert.Inconclusive(
-    //             $"Test API Key is not available. Make sure you have api key set in environment variable {Constants.API_KEY_ENV_VARIABLE}. Skip all tests.");
-    //     }
-    //
-    //     API_KEY = key;
-    // }
     [Test]
     public async Task Should_Get_Server_Statistics()
     {

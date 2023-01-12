@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Omg.Lol.Net.Infrastructure.Exceptions;
+using Omg.Lol.Net.Models;
 
 public class ApiServerCommunicationHandler : IApiServerCommunicationHandler
 {
@@ -50,24 +51,11 @@ public class ApiServerCommunicationHandler : IApiServerCommunicationHandler
         var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         if (!response.IsSuccessStatusCode)
         {
-            try
-            {
-                // TODO: get server error model via manual testing
-                throw new ApiResponseException();
-            }
-            catch
-            {
-                throw new ApiResponseException();
-            }
+            throw new ApiResponseException(
+                JsonConvert.DeserializeObject<CommonResponse<ErrorMessage>>(
+                    await response.Content.ReadAsStringAsync().ConfigureAwait(false)));
         }
 
-        try
-        {
-            return JsonConvert.DeserializeObject<T>(content) !;
-        }
-        catch (JsonException ex)
-        {
-            throw new ApiResponseException();
-        }
+        return JsonConvert.DeserializeObject<T>(content) !;
     }
 }

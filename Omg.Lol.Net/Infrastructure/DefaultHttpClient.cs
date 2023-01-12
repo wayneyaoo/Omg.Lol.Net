@@ -14,22 +14,23 @@ public class DefaultHttpClient : IHttpClient
     public async Task<HttpResponseMessage> RequestAsync(HttpRequestMessage requestMessage)
         => await HttpClient.Value.SendAsync(requestMessage).ConfigureAwait(false);
 
-    public Task<HttpResponseMessage> GetAsync(string url)
-        => this.SendInternalAsync(url, HttpMethod.Get);
+    public async Task<HttpResponseMessage> GetAsync(string url)
+        => await this.SendInternalAsync(url, HttpMethod.Get).ConfigureAwait(false);
 
-    public Task<HttpResponseMessage> GetAsync(string url, string bearerToken)
-        => this.SendInternalAsync(url, HttpMethod.Get, bearerToken);
+    public async Task<HttpResponseMessage> GetAsync(string url, string bearerToken)
+        => await this.SendInternalAsync(url, HttpMethod.Get, bearerToken).ConfigureAwait(false);
 
-    public Task<HttpResponseMessage> PostAsync(string url, string bearerToken, HttpContent content)
-        => this.SendInternalAsync(url, HttpMethod.Post, bearerToken, content);
+    public async Task<HttpResponseMessage> PostAsync(string url, string bearerToken, HttpContent content)
+        => await this.SendInternalAsync(url, HttpMethod.Post, bearerToken, content).ConfigureAwait(false);
 
-    public Task<HttpResponseMessage> PostAsync(string url, string bearerToken, string content)
-        => this.SendInternalAsync(url, HttpMethod.Post, bearerToken, new StringContent(content));
+    public async Task<HttpResponseMessage> PostAsync(string url, string bearerToken, string content)
+        => await this.SendInternalAsync(url, HttpMethod.Post, bearerToken, new StringContent(content))
+            .ConfigureAwait(false);
 
-    public Task<HttpResponseMessage> DeleteAsync(string url, string bearerToken)
-        => this.SendInternalAsync(url, HttpMethod.Delete, bearerToken);
+    public async Task<HttpResponseMessage> DeleteAsync(string url, string bearerToken)
+        => await this.SendInternalAsync(url, HttpMethod.Delete, bearerToken).ConfigureAwait(false);
 
-    private Task<HttpResponseMessage> SendInternalAsync(
+    private async Task<HttpResponseMessage> SendInternalAsync(
         string url,
         HttpMethod method,
         string? bearer = null,
@@ -51,6 +52,6 @@ public class DefaultHttpClient : IHttpClient
             message.Headers.Authorization = new AuthenticationHeaderValue(BearerAuth, bearer);
         }
 
-        return this.RequestAsync(message);
+        return await this.RequestAsync(message).ConfigureAwait(false);
     }
 }

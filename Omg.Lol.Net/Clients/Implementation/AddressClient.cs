@@ -27,19 +27,23 @@ public class AddressClient : IAddressClient
 
     public async Task<CommonResponse<AddressAvailability>> RetrieveAddressAvailability(string address)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AddressAvailability>>(
-            this.Url + string.Format(RetreiveAddressAvailabilityEndpoint, address));
+            this.Url + string.Format(RetreiveAddressAvailabilityEndpoint, address))
+            .ConfigureAwait(false);
 
     public async Task<CommonResponse<AddressExpiration>> RetrieveAddressExpiration(string address)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AddressExpiration>>(
-            this.Url + string.Format(RetrieveAddressExpirationEndpoint, address));
+            this.Url + string.Format(RetrieveAddressExpirationEndpoint, address))
+            .ConfigureAwait(false);
 
     public async Task<CommonResponse<AddressInformation>> RetrieveAddressInformation(string address)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AddressInformation>>(
-            this.Url + string.Format(RetrieveAddressInformationEndpoint, address));
+            this.Url + string.Format(RetrieveAddressInformationEndpoint, address))
+            .ConfigureAwait(false);
 
     public async Task<CommonResponse<AddressInformation>> RetrieveAddressInformation(
         string address,
         string bearerToken)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AddressInformation>>(
-            this.Url + string.Format(RetrieveAddressInformationEndpoint, address), bearerToken);
+            this.Url + string.Format(RetrieveAddressInformationEndpoint, address), bearerToken)
+            .ConfigureAwait(false);
 }

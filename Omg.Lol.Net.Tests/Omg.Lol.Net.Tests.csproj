@@ -25,10 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="E2ETests" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Omg.Lol.Net\Omg.Lol.Net.csproj" />
   </ItemGroup>
 

@@ -9,7 +9,7 @@ public class ServiceClient : IServiceClient
 {
     public string? Token { get; set; }
 
-    public string Url { get; set; } = null!;
+    public string Url { get; set; }
 
     private const string RetrieveServiceInformation = "/service/info";
 
@@ -22,5 +22,6 @@ public class ServiceClient : IServiceClient
 
     public async Task<CommonResponse<ServiceInfo>> GetServiceStatistics()
         => await this.apiServerCommunicationHandler
-            .GetAsync<CommonResponse<ServiceInfo>>(this.Url + RetrieveServiceInformation, this.Token);
+            .GetAsync<CommonResponse<ServiceInfo>>(this.Url + RetrieveServiceInformation)
+            .ConfigureAwait(false);
 }

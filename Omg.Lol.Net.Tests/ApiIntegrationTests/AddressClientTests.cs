@@ -20,11 +20,11 @@ public class AddressClientTests
     [OneTimeSetUp]
     public void ApiKeyRetrieve()
     {
-        var key = Environment.GetEnvironmentVariable(Constants.API_KEY_ENV_VARIABLE);
+        var key = Environment.GetEnvironmentVariable(TestConstants.API_KEY_ENV_VARIABLE);
         if (key is null)
         {
             Assert.Inconclusive(
-                $"Test API Key is not available. Make sure you have api key set in environment variable {Constants.API_KEY_ENV_VARIABLE}. Skip all tests.");
+                $"Test API Key is not available. Make sure you have api key set in environment variable {TestConstants.API_KEY_ENV_VARIABLE}. Skip all tests.");
         }
 
         API_KEY = key;

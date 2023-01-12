@@ -1,9 +1,10 @@
 ﻿namespace Omg.Lol.Net.Clients;
 
 using Omg.Lol.Net.Clients.Abstract;
+using Omg.Lol.Net.Clients.Implementation;
 using Omg.Lol.Net.Infrastructure;
 
-public class OmgLolClient : IOmgLolClient, ITokenBearer
+internal class OmgLolClient : IOmgLolClient, ITokenBearer
 {
     public string Token { get; set; }
 
@@ -28,16 +29,17 @@ public class OmgLolClient : IOmgLolClient, ITokenBearer
     public OmgLolClient(IApiServerCommunicationHandler apiServerCommunicationHandler)
     {
         this.apiServerCommunicationHandler = apiServerCommunicationHandler;
-    }
 
-    /// <summary>
-    /// This method is for client code use without DI. Note a new instance is crated on every call. Client code needs to implement cache if desired.
-    /// </summary>
-    /// <para name="apiKey">The omg.lol API key.</para>
-    /// <returns></returns>
-    public static OmgLolClient CreateDefaultClient(string apiKey)
-        => new (new ApiServerCommunicationHandler(new HttpClientFactory()))
+        this.AddressClient = new AddressClient(this.apiServerCommunicationHandler)
         {
-            Token = apiKey,
+            Token = this.Token,
+            Url = this.Url,
         };
+
+        this.ServiceClient = new ServiceClient(this.apiServerCommunicationHandler)
+        {
+            Token = this.Token,
+            Url = this.Url,
+        };
+    }
 }

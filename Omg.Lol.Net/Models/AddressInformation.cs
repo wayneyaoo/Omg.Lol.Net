@@ -22,7 +22,7 @@ public class AddressInformation
     public Verification Verification { get; set; }
 
     [JsonProperty("keys")]
-    public Dictionary<string, string[]> Keys { get; set; }
+    public Dictionary<string, string[]>? Keys { get; set; }
 
     /// <summary>
     /// The owner information is only available when request with bearer token.
@@ -40,16 +40,16 @@ public class Registration
     public string Message { get; set; }
 
     [JsonProperty("unix_epoch_time")]
-    public long UnixEpochTime { get; set; }
+    public long? UnixEpochTime { get; set; }
 
     [JsonProperty("iso_8601_time")]
-    public DateTimeOffset Iso8601_Time { get; set; }
+    public DateTimeOffset? Iso8601_Time { get; set; }
 
     [JsonProperty("rfc_2822_time")]
-    public string Rfc2822_Time { get; set; }
+    public string? Rfc2822_Time { get; set; }
 
     [JsonProperty("relative_time")]
-    public string RelativeTime { get; set; }
+    public string? RelativeTime { get; set; }
 }
 
 /// <summary>

@@ -9,7 +9,7 @@ public class ServiceClient : IServiceClient
 {
     public string? Token { get; set; }
 
-    public string Url { get; set; } = null!;
+    public string Url { get; set; }
 
     private const string RetrieveServiceInformation = "/service/info";
 

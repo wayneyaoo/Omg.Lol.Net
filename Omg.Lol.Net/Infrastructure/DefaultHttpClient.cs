@@ -52,6 +52,6 @@ public class DefaultHttpClient : IHttpClient
             message.Headers.Authorization = new AuthenticationHeaderValue(BearerAuth, bearer);
         }
 
-        return await this.RequestAsync(message);
+        return await this.RequestAsync(message).ConfigureAwait(false);
     }
 }

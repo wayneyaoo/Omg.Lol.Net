@@ -22,5 +22,6 @@ public class ServiceClient : IServiceClient
 
     public async Task<CommonResponse<ServiceInfo>> GetServiceStatistics()
         => await this.apiServerCommunicationHandler
-            .GetAsync<CommonResponse<ServiceInfo>>(this.Url + RetrieveServiceInformation, this.Token);
+            .GetAsync<CommonResponse<ServiceInfo>>(this.Url + RetrieveServiceInformation)
+            .ConfigureAwait(false);
 }

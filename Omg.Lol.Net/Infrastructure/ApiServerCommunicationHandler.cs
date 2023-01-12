@@ -17,34 +17,43 @@ public class ApiServerCommunicationHandler : IApiServerCommunicationHandler
     }
 
     public async Task<T> GetAsync<T>(string url, string bearerToken)
-        => await this.SendInternalAsync<T>(this.httpClient.Value.GetAsync, url, bearerToken);
+        => await this.SendInternalAsync<T>(this.httpClient.Value.GetAsync, url, bearerToken)
+            .ConfigureAwait(false);
 
     public async Task<T> GetAsync<T>(string url)
-        => await this.SendInternalAsync<T>(this.httpClient.Value.GetAsync, url);
+        => await this.SendInternalAsync<T>(this.httpClient.Value.GetAsync, url)
+            .ConfigureAwait(false);
 
     public async Task<T> PostAsync<T>(string url, string bearerToken, string content)
-        => await this.SendInternalAsync<T>(this.httpClient.Value.PostAsync, url, bearerToken, content);
+        => await this.SendInternalAsync<T>(this.httpClient.Value.PostAsync, url, bearerToken, content)
+            .ConfigureAwait(false);
 
     public async Task<T> DeleteAsync<T>(string url, string bearerToken)
-        => await this.SendInternalAsync<T>(this.httpClient.Value.DeleteAsync, url, bearerToken);
+        => await this.SendInternalAsync<T>(this.httpClient.Value.DeleteAsync, url, bearerToken)
+            .ConfigureAwait(false);
 
     private async Task<T> SendInternalAsync<T>(
         Func<string, Task<HttpResponseMessage>> method,
         string url)
-        => await this.ResponseTransformation<T>(await method(url));
+        => await this.ResponseTransformation<T>(await method(url)
+            .ConfigureAwait(false)).ConfigureAwait(false);
 
     private async Task<T> SendInternalAsync<T>(
         Func<string, string, Task<HttpResponseMessage>> method,
         string url,
         string bearer)
-        => await this.ResponseTransformation<T>(await method(url, bearer));
+        => await this.ResponseTransformation<T>(await method(url, bearer)
+                .ConfigureAwait(false))
+            .ConfigureAwait(false);
 
     private async Task<T> SendInternalAsync<T>(
         Func<string, string, string, Task<HttpResponseMessage>> method,
         string url,
         string bearer,
         string content)
-        => await this.ResponseTransformation<T>(await method(url, bearer, content));
+        => await this.ResponseTransformation<T>(await method(url, bearer, content)
+                .ConfigureAwait(false))
+            .ConfigureAwait(false);
 
     private async Task<T> ResponseTransformation<T>(HttpResponseMessage response)
     {

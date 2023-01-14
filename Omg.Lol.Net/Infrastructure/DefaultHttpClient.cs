@@ -20,10 +20,10 @@ public class DefaultHttpClient : IHttpClient
     public async Task<HttpResponseMessage> GetAsync(string url, string bearerToken)
         => await this.SendInternalAsync(url, HttpMethod.Get, bearerToken).ConfigureAwait(false);
 
-    public async Task<HttpResponseMessage> PostAsync(string url, string bearerToken, HttpContent content)
+    public async Task<HttpResponseMessage> PostAsync(string url, HttpContent content, string bearerToken)
         => await this.SendInternalAsync(url, HttpMethod.Post, bearerToken, content).ConfigureAwait(false);
 
-    public async Task<HttpResponseMessage> PostAsync(string url, string bearerToken, string content)
+    public async Task<HttpResponseMessage> PostAsync(string url, string content, string bearerToken)
         => await this.SendInternalAsync(url, HttpMethod.Post, bearerToken, new StringContent(content))
             .ConfigureAwait(false);
 

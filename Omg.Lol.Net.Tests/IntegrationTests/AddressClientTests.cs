@@ -1,4 +1,4 @@
-﻿namespace Omg.Lol.Net.Tests.ApiIntegrationTests;
+﻿namespace Omg.Lol.Net.Tests.IntegrationTests;
 
 using System;
 using System.Threading.Tasks;
@@ -52,7 +52,7 @@ public class AddressClientTests
     public async Task RetrieveAddressAvailability_Address_Should_Not_Be_Available()
     {
         // Act
-        CommonResponse<AddressAvailability> response = await this.addressClient.RetrieveAddressAvailability("adam");
+        CommonResponse<AddressAvailability> response = await this.addressClient.RetrieveAddressAvailabilityAsync("adam");
 
         // Assert
         Assert.That(response.Request.Success, Is.True);
@@ -71,7 +71,7 @@ public class AddressClientTests
 
         // Act
         CommonResponse<AddressAvailability> response =
-            await this.addressClient.RetrieveAddressAvailability(randomAddress);
+            await this.addressClient.RetrieveAddressAvailabilityAsync(randomAddress);
 
         // Assert
         Assert.That(response.Request.Success, Is.True);
@@ -91,7 +91,7 @@ public class AddressClientTests
         // Act
         ApiResponseException exception =
             Assert.ThrowsAsync<ApiResponseException>(async () =>
-                await this.addressClient.RetrieveAddressExpiration(randomAddress));
+                await this.addressClient.RetrieveAddressExpirationAsync(randomAddress));
 
         // Assert
         Assert.That(exception.ServerResponse.Request.StatusCode, Is.EqualTo(404));
@@ -103,7 +103,7 @@ public class AddressClientTests
     [Test]
     public async Task RetrieveAddressExpiration_Account_Never_Expires()
     {
-        CommonResponse<AddressExpiration> response = await this.addressClient.RetrieveAddressExpiration("adam");
+        CommonResponse<AddressExpiration> response = await this.addressClient.RetrieveAddressExpirationAsync("adam");
 
         Assert.That(response.Request.StatusCode, Is.EqualTo(200));
         Assert.That(response.Request.Success, Is.True);
@@ -115,7 +115,7 @@ public class AddressClientTests
     [Test]
     public async Task RetrieveAddressExpiration_Account_Expirable_Not_Expired_Yet()
     {
-        CommonResponse<AddressExpiration> response = await this.addressClient.RetrieveAddressExpiration("wy-test");
+        CommonResponse<AddressExpiration> response = await this.addressClient.RetrieveAddressExpirationAsync("wy-test");
 
         Assert.That(response.Request.StatusCode, Is.EqualTo(200));
         Assert.That(response.Request.Success, Is.True);
@@ -132,7 +132,7 @@ public class AddressClientTests
     [Test]
     public async Task RetrieveAccountInformation_Public_Should_Retrieve_AddressInformation()
     {
-        CommonResponse<AddressInformation> response = await this.addressClient.RetrieveAddressInformation("adam");
+        CommonResponse<AddressInformation> response = await this.addressClient.RetrieveAddressInformationAsync("adam");
 
         Assert.That(response.Request.StatusCode, Is.EqualTo(200));
         Assert.That(response.Request.Success, Is.True);
@@ -157,7 +157,7 @@ public class AddressClientTests
     public async Task RetrieveAccountInformation_Private_Should_Retrieve_AddressInformation()
     {
         CommonResponse<AddressInformation> response =
-            await this.addressClient.RetrieveAddressInformation("wy-test", API_KEY);
+            await this.addressClient.RetrievePrivateAddressInformationAsync("wy-test");
 
         Assert.That(response.Request.StatusCode, Is.EqualTo(200));
         Assert.That(response.Request.Success, Is.True);
@@ -182,7 +182,7 @@ public class AddressClientTests
     public async Task RetrieveAccountInformation_Private_Should_Not_Retrieve_AddressInformation_Of_Other_Accounts()
     {
         ApiResponseException exception = Assert.ThrowsAsync<ApiResponseException>(
-            async () => await this.addressClient.RetrieveAddressInformation("adam", API_KEY));
+            async () => await this.addressClient.RetrievePrivateAddressInformationAsync("adam"));
 
         Assert.That(exception.ServerResponse.Request.StatusCode, Is.EqualTo(401));
         Assert.That(exception.ServerResponse.Request.Success, Is.False);

@@ -7,9 +7,9 @@ using Omg.Lol.Net.Models;
 
 public class ServiceClient : IServiceClient
 {
-    public string? Token { get; set; }
+    public string Token { get; set; } = string.Empty;
 
-    public string Url { get; set; }
+    public string Url { get; set; } = string.Empty;
 
     private const string RetrieveServiceInformation = "/service/info";
 

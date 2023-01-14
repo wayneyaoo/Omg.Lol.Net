@@ -6,11 +6,11 @@ using Omg.Lol.Net.Models;
 
 public interface IAddressClient : IApiInfoCarrier
 {
-    public Task<CommonResponse<AddressAvailability>> RetrieveAddressAvailability(string address);
+    public Task<CommonResponse<AddressAvailability>> RetrieveAddressAvailabilityAsync(string address);
 
-    public Task<CommonResponse<AddressExpiration>> RetrieveAddressExpiration(string address);
+    public Task<CommonResponse<AddressExpiration>> RetrieveAddressExpirationAsync(string address);
 
-    public Task<CommonResponse<AddressInformation>> RetrieveAddressInformation(string address);
+    public Task<CommonResponse<AddressInformation>> RetrieveAddressInformationAsync(string address);
 
-    public Task<CommonResponse<AddressInformation>> RetrieveAddressInformation(string address, string bearerToken);
+    public Task<CommonResponse<AddressInformation>> RetrievePrivateAddressInformationAsync(string address);
 }

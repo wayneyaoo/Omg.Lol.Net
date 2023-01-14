@@ -1,4 +1,4 @@
-﻿namespace Omg.Lol.Net.Tests.ApiIntegrationTests;
+﻿namespace Omg.Lol.Net.Tests.IntegrationTests;
 
 using System.Threading.Tasks;
 using NUnit.Framework;

@@ -24,8 +24,8 @@ public class ApiServerCommunicationHandler : IApiServerCommunicationHandler
         => await this.SendInternalAsync<T>(this.httpClient.Value.GetAsync, url)
             .ConfigureAwait(false);
 
-    public async Task<T> PostAsync<T>(string url, string bearerToken, string content)
-        => await this.SendInternalAsync<T>(this.httpClient.Value.PostAsync, url, bearerToken, content)
+    public async Task<T> PostAsync<T>(string url, string content, string bearerToken)
+        => await this.SendInternalAsync<T>(this.httpClient.Value.PostAsync, url, content, bearerToken)
             .ConfigureAwait(false);
 
     public async Task<T> DeleteAsync<T>(string url, string bearerToken)
@@ -49,9 +49,9 @@ public class ApiServerCommunicationHandler : IApiServerCommunicationHandler
     private async Task<T> SendInternalAsync<T>(
         Func<string, string, string, Task<HttpResponseMessage>> method,
         string url,
-        string bearer,
-        string content)
-        => await this.ResponseTransformation<T>(await method(url, bearer, content)
+        string content,
+        string bearer)
+        => await this.ResponseTransformation<T>(await method(url, content, bearer)
                 .ConfigureAwait(false))
             .ConfigureAwait(false);
 
@@ -61,7 +61,7 @@ public class ApiServerCommunicationHandler : IApiServerCommunicationHandler
         if (!response.IsSuccessStatusCode)
         {
             throw new ApiResponseException(
-                JsonConvert.DeserializeObject<CommonResponse<ErrorMessage>>(
+                JsonConvert.DeserializeObject<CommonResponse<ResponseMessage>>(
                     await response.Content.ReadAsStringAsync().ConfigureAwait(false)));
         }
 

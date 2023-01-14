@@ -4,11 +4,11 @@ using Omg.Lol.Net.Clients.Abstract;
 using Omg.Lol.Net.Clients.Implementation;
 using Omg.Lol.Net.Infrastructure;
 
-internal class OmgLolClient : IOmgLolClient, ITokenBearer
+internal class OmgLolClient : IOmgLolClient
 {
-    public string Token { get; set; }
+    public string Token { get; set; } = string.Empty;
 
-    public string Url { get; set; }
+    public string Url { get; set; } = string.Empty;
 
     public IAccountClient AccountClient { get; }
 
@@ -24,19 +24,21 @@ internal class OmgLolClient : IOmgLolClient, ITokenBearer
 
     public IStatusLogClient StatusLogClient { get; }
 
-    private readonly IApiServerCommunicationHandler apiServerCommunicationHandler;
-
     public OmgLolClient(IApiServerCommunicationHandler apiServerCommunicationHandler)
     {
-        this.apiServerCommunicationHandler = apiServerCommunicationHandler;
-
-        this.AddressClient = new AddressClient(this.apiServerCommunicationHandler)
+        this.AddressClient = new AddressClient(apiServerCommunicationHandler)
         {
             Token = this.Token,
             Url = this.Url,
         };
 
-        this.ServiceClient = new ServiceClient(this.apiServerCommunicationHandler)
+        this.ServiceClient = new ServiceClient(apiServerCommunicationHandler)
+        {
+            Token = this.Token,
+            Url = this.Url,
+        };
+
+        this.PastebinClient = new PastebinClient(apiServerCommunicationHandler)
         {
             Token = this.Token,
             Url = this.Url,

@@ -2,9 +2,11 @@
 
 using Newtonsoft.Json;
 
-// For Non-200 response, only message field is captured.
-public class ErrorMessage
+public class MultiplePastes
 {
     [JsonProperty("message")]
     public string Message { get; set; }
+
+    [JsonProperty("pastebin")]
+    public PasteBrief[] Pastebin { get; set; }
 }

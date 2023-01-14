@@ -5,9 +5,15 @@ using Omg.Lol.Net.Models;
 
 public class ApiResponseException : Exception
 {
-    public CommonResponse<ErrorMessage> ServerResponse { get; }
+    public override string Message => this.ServerResponse.Response.Message;
 
-    public ApiResponseException(CommonResponse<ErrorMessage> error)
+    public int StatusCode => this.ServerResponse.Request.StatusCode;
+
+    public bool Success => this.ServerResponse.Request.Success;
+
+    public CommonResponse<ResponseMessage> ServerResponse { get; }
+
+    public ApiResponseException(CommonResponse<ResponseMessage> error)
     {
         this.ServerResponse = error;
     }

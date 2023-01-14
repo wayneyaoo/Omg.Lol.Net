@@ -7,9 +7,9 @@ using Omg.Lol.Net.Models;
 
 public class AddressClient : IAddressClient
 {
-    public string Token { get; set; }
+    public string Token { get; set; } = string.Empty;
 
-    public string Url { get; set; }
+    public string Url { get; set; } = string.Empty;
 
     // TODO: url encode the address?
     private static readonly string RetreiveAddressAvailabilityEndpoint = "/address/{0}/availability";
@@ -25,25 +25,23 @@ public class AddressClient : IAddressClient
         this.apiServerCommunicationHandler = apiServerCommunicationHandler;
     }
 
-    public async Task<CommonResponse<AddressAvailability>> RetrieveAddressAvailability(string address)
+    public async Task<CommonResponse<AddressAvailability>> RetrieveAddressAvailabilityAsync(string address)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AddressAvailability>>(
             this.Url + string.Format(RetreiveAddressAvailabilityEndpoint, address))
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<AddressExpiration>> RetrieveAddressExpiration(string address)
+    public async Task<CommonResponse<AddressExpiration>> RetrieveAddressExpirationAsync(string address)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AddressExpiration>>(
             this.Url + string.Format(RetrieveAddressExpirationEndpoint, address))
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<AddressInformation>> RetrieveAddressInformation(string address)
+    public async Task<CommonResponse<AddressInformation>> RetrieveAddressInformationAsync(string address)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AddressInformation>>(
             this.Url + string.Format(RetrieveAddressInformationEndpoint, address))
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<AddressInformation>> RetrieveAddressInformation(
-        string address,
-        string bearerToken)
+    public async Task<CommonResponse<AddressInformation>> RetrievePrivateAddressInformationAsync(string address)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AddressInformation>>(
-            this.Url + string.Format(RetrieveAddressInformationEndpoint, address), bearerToken)
+            this.Url + string.Format(RetrieveAddressInformationEndpoint, address), this.Token)
             .ConfigureAwait(false);
 }

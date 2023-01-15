@@ -9,7 +9,13 @@ public class DefaultHttpClient : IHttpClient
 {
     private const string BearerAuth = "Bearer";
 
-    private static readonly Lazy<HttpClient> HttpClient = new (() => new HttpClient());
+    private static readonly Lazy<HttpClient> HttpClient = new (() =>
+    {
+        var ret = new HttpClient();
+        ret.DefaultRequestHeaders.UserAgent.Clear();
+        ret.DefaultRequestHeaders.Add("User-Agent", "Omg.Lol.Net SDK Client");
+        return ret;
+    });
 
     public async Task<HttpResponseMessage> RequestAsync(HttpRequestMessage requestMessage)
         => await HttpClient.Value.SendAsync(requestMessage).ConfigureAwait(false);
@@ -20,11 +26,12 @@ public class DefaultHttpClient : IHttpClient
     public async Task<HttpResponseMessage> GetAsync(string url, string bearerToken)
         => await this.SendInternalAsync(url, HttpMethod.Get, bearerToken).ConfigureAwait(false);
 
-    public async Task<HttpResponseMessage> PostAsync(string url, HttpContent content, string bearerToken)
-        => await this.SendInternalAsync(url, HttpMethod.Post, bearerToken, content).ConfigureAwait(false);
-
     public async Task<HttpResponseMessage> PostAsync(string url, string content, string bearerToken)
         => await this.SendInternalAsync(url, HttpMethod.Post, bearerToken, new StringContent(content))
+            .ConfigureAwait(false);
+
+    public async Task<HttpResponseMessage> PatchAsync(string url, string content, string bearerToken)
+        => await this.SendInternalAsync(url, new HttpMethod("PATCH"), bearerToken, new StringContent(content))
             .ConfigureAwait(false);
 
     public async Task<HttpResponseMessage> DeleteAsync(string url, string bearerToken)

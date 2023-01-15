@@ -2,6 +2,7 @@
 
 using System;
 using Omg.Lol.Net.Models;
+using Omg.Lol.Net.Models.Items;
 
 public class ApiResponseException : Exception
 {
@@ -11,9 +12,9 @@ public class ApiResponseException : Exception
 
     public bool Success => this.ServerResponse.Request.Success;
 
-    public CommonResponse<ResponseMessage> ServerResponse { get; }
+    public CommonResponse<MessageItem> ServerResponse { get; }
 
-    public ApiResponseException(CommonResponse<ResponseMessage> error)
+    public ApiResponseException(CommonResponse<MessageItem> error)
     {
         this.ServerResponse = error;
     }

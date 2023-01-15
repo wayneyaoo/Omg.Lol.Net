@@ -5,14 +5,14 @@ using Newtonsoft.Json;
 public class AddressAvailability
 {
     [JsonProperty("message")]
-    public string Message { get; set; }
+    public string Message { get; set; } = string.Empty;
 
     [JsonProperty("address")]
-    public string Address { get; set; }
+    public string Address { get; set; } = string.Empty;
 
     [JsonProperty("available")]
     public bool Available { get; set; }
 
     [JsonProperty("availability")]
-    public string Availability { get; set; }
+    public string Availability { get; set; } = string.Empty;
 }

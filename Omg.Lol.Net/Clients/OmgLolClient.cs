@@ -22,7 +22,7 @@ internal class OmgLolClient : IOmgLolClient
 
     public IPastebinClient PastebinClient { get; }
 
-    public IStatusLogClient StatusLogClient { get; }
+    public IStatuslogClient StatuslogClient { get; }
 
     public OmgLolClient(IApiServerCommunicationHandler apiServerCommunicationHandler)
     {
@@ -39,6 +39,12 @@ internal class OmgLolClient : IOmgLolClient
         };
 
         this.PastebinClient = new PastebinClient(apiServerCommunicationHandler)
+        {
+            Token = this.Token,
+            Url = this.Url,
+        };
+
+        this.StatuslogClient = new StatuslogClient(apiServerCommunicationHandler)
         {
             Token = this.Token,
             Url = this.Url,

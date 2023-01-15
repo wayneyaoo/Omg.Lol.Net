@@ -1,8 +1,6 @@
 ﻿namespace Omg.Lol.Net.Tests.IntegrationTests;
 
 using System;
-using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using NSubstitute;
 using NUnit.Framework;
@@ -71,13 +69,13 @@ public class PastebinClientTests
     [Test]
     public async Task RetrieveASpecificPaste_GetPrivatePaste()
     {
-        var response = await this.pastebinClient.RetrieveASpecificPasteAsync("wy-test", "get-me-private");
+        var response = await this.pastebinClient.RetrieveASpecificPasteAsync("wy-test", "get-me-unlisted");
 
         Assert.That(response.Request.Success, Is.True);
         Assert.That(response.Request.StatusCode, Is.EqualTo(200));
         Assert.That(response.Response.Message, Is.Not.Empty);
         Assert.That(response.Response.PasteDetail.Content, Contains.Substring("[Integration Test]"));
-        Assert.That(response.Response.PasteDetail.Title, Is.EqualTo("get-me-private"));
+        Assert.That(response.Response.PasteDetail.Title, Is.EqualTo("get-me-unlisted"));
         Assert.That(
             response.Response.PasteDetail.ModifiedOn,
             Is.LessThanOrEqualTo(DateTimeOffset.UtcNow.ToUnixTimeSeconds()));

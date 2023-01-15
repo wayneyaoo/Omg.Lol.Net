@@ -11,9 +11,9 @@ public interface IHttpClient
 
     public Task<HttpResponseMessage> GetAsync(string url, string bearerToken);
 
-    public Task<HttpResponseMessage> PostAsync(string url, HttpContent content, string bearerToken);
-
     public Task<HttpResponseMessage> PostAsync(string url, string content, string bearerToken);
+
+    public Task<HttpResponseMessage> PatchAsync(string url, string content, string bearerToken);
 
     public Task<HttpResponseMessage> DeleteAsync(string url, string bearerToken);
 }

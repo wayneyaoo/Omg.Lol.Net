@@ -1,12 +1,10 @@
 ﻿namespace Omg.Lol.Net.Models;
 
 using Newtonsoft.Json;
+using Omg.Lol.Net.Models.Items;
 
-public class PasteDetail
+public class PasteDetail : ContentItem
 {
-    [JsonProperty("content")]
-    public string Content { get; set; }
-
     [JsonProperty("modified_on")]
     public long? ModifiedOn { get; set; }
 

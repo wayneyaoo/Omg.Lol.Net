@@ -17,5 +17,5 @@ public interface IOmgLolClient : IApiInfoCarrier
 
     public IPastebinClient PastebinClient { get; }
 
-    public IStatusLogClient StatusLogClient { get; }
+    public IStatuslogClient StatuslogClient { get; }
 }

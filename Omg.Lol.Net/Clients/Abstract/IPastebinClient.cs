@@ -3,6 +3,7 @@
 using System.Threading.Tasks;
 using Omg.Lol.Net.Infrastructure;
 using Omg.Lol.Net.Models;
+using Omg.Lol.Net.Models.Items;
 
 public interface IPastebinClient : IApiInfoCarrier
 {
@@ -14,5 +15,5 @@ public interface IPastebinClient : IApiInfoCarrier
 
     public Task<CommonResponse<PasteModified>> CreateOrUpdatePasteAsync(string address, PastePost paste);
 
-    public Task<CommonResponse<ResponseMessage>> DeletePasteAsync(string address, string pasteTitle);
+    public Task<CommonResponse<MessageItem>> DeletePasteAsync(string address, string pasteTitle);
 }

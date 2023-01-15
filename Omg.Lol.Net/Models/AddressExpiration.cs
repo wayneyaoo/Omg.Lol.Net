@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 public class AddressExpiration
 {
     [JsonProperty("message")]
-    public string Message { get; set; }
+    public string Message { get; set; } = string.Empty;
 
     [JsonProperty("unix_epoch_time")]
     public long? UnixEpochTime { get; set; }

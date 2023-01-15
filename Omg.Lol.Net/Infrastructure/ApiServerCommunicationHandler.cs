@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Omg.Lol.Net.Infrastructure.Exceptions;
 using Omg.Lol.Net.Models;
+using Omg.Lol.Net.Models.Items;
 
 public class ApiServerCommunicationHandler : IApiServerCommunicationHandler
 {
@@ -25,6 +26,10 @@ public class ApiServerCommunicationHandler : IApiServerCommunicationHandler
             .ConfigureAwait(false);
 
     public async Task<T> PostAsync<T>(string url, string content, string bearerToken)
+        => await this.SendInternalAsync<T>(this.httpClient.Value.PostAsync, url, content, bearerToken)
+            .ConfigureAwait(false);
+
+    public async Task<T> PatchAsync<T>(string url, string content, string bearerToken)
         => await this.SendInternalAsync<T>(this.httpClient.Value.PostAsync, url, content, bearerToken)
             .ConfigureAwait(false);
 
@@ -61,7 +66,7 @@ public class ApiServerCommunicationHandler : IApiServerCommunicationHandler
         if (!response.IsSuccessStatusCode)
         {
             throw new ApiResponseException(
-                JsonConvert.DeserializeObject<CommonResponse<ResponseMessage>>(
+                JsonConvert.DeserializeObject<CommonResponse<MessageItem>>(
                     await response.Content.ReadAsStringAsync().ConfigureAwait(false)));
         }
 

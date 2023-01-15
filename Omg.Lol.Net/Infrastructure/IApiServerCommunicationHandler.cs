@@ -10,5 +10,7 @@ public interface IApiServerCommunicationHandler
 
     public Task<T> PostAsync<T>(string url, string content, string bearerToken);
 
+    public Task<T> PatchAsync<T>(string url, string content, string bearerToken);
+
     public Task<T> DeleteAsync<T>(string url, string bearerToken);
 }

@@ -12,11 +12,11 @@ public class AddressClient : IAddressClient
     public string Url { get; set; } = string.Empty;
 
     // TODO: url encode the address?
-    private static readonly string RetreiveAddressAvailabilityEndpoint = "/address/{0}/availability";
+    private const string RetreiveAddressAvailabilityEndpoint = "/address/{0}/availability";
 
-    private static readonly string RetrieveAddressExpirationEndpoint = "/address/{0}/expiration";
+    private const string RetrieveAddressExpirationEndpoint = "/address/{0}/expiration";
 
-    private static readonly string RetrieveAddressInformationEndpoint = "/address/{0}/info";
+    private const string RetrieveAddressInformationEndpoint = "/address/{0}/info";
 
     private readonly IApiServerCommunicationHandler apiServerCommunicationHandler;
 

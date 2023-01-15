@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Omg.Lol.Net.Clients.Abstract;
 using Omg.Lol.Net.Infrastructure;
 using Omg.Lol.Net.Models;
+using Omg.Lol.Net.Models.Items;
 
 public class PastebinClient : IPastebinClient
 {
@@ -53,9 +54,9 @@ public class PastebinClient : IPastebinClient
                 this.Token)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<ResponseMessage>> DeletePasteAsync(string address, string pasteTitle)
+    public async Task<CommonResponse<MessageItem>> DeletePasteAsync(string address, string pasteTitle)
         => await this.apiServerCommunicationHandler
-            .DeleteAsync<CommonResponse<ResponseMessage>>(
+            .DeleteAsync<CommonResponse<MessageItem>>(
                 this.Url + string.Format(DeletePasteEndpoint, address, pasteTitle),
                 this.Token)
             .ConfigureAwait(false);

@@ -1,0 +1,31 @@
+name: Code Coverage On main
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  Get-absolute-coverage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dotnet SDK 6
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Install dotnet SDK 7
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+
+      - name: Check dotnet version
+        run: dotnet --list-sdks
+
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Coverage profiling
+        env:
+          OMG_LOL_MYSTERIOUS_API_KEY: ${{ secrets.OMG_LOL_MYSTERIOUS_API_KEY }}
+        run: dotnet test -c Release -v normal --collect:"XPlat Code Coverage"

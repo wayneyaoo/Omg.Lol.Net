@@ -35,5 +35,5 @@ jobs:
       - name: Test
         env:
           OMG_LOL_MYSTERIOUS_API_KEY: ${{ secrets.OMG_LOL_MYSTERIOUS_API_KEY }}
-        run: dotnet test -c Release --no-build ./Omg.Lol.Net.sln
+        run: dotnet test -v normal -c Release --no-build ./Omg.Lol.Net.sln
     

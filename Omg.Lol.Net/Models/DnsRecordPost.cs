@@ -16,5 +16,5 @@ public class DnsRecordPost
     public string Data { get; set; } = string.Empty;
 
     [JsonProperty("ttl")]
-    public int? Ttl { get; set; }
+    public int Ttl { get; set; }
 }

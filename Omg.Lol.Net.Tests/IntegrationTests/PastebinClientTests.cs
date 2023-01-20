@@ -58,6 +58,7 @@ public class PastebinClientTests
         Assert.That(response.Response.Message, Is.Not.Empty);
         Assert.That(response.Response.PasteDetail.Content, Contains.Substring("[Integration Test]"));
         Assert.That(response.Response.PasteDetail.Title, Is.EqualTo("get-me"));
+        // Assert.That(response.Response.PasteDetail.Listed, Is.True);
         Assert.That(
             response.Response.PasteDetail.ModifiedOn,
             Is.LessThanOrEqualTo(DateTimeOffset.UtcNow.ToUnixTimeSeconds()));

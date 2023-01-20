@@ -30,7 +30,7 @@ public class ApiServerCommunicationHandler : IApiServerCommunicationHandler
             .ConfigureAwait(false);
 
     public async Task<T> PatchAsync<T>(string url, string content, string bearerToken)
-        => await this.SendInternalAsync<T>(this.httpClient.Value.PostAsync, url, content, bearerToken)
+        => await this.SendInternalAsync<T>(this.httpClient.Value.PatchAsync, url, content, bearerToken)
             .ConfigureAwait(false);
 
     public async Task<T> DeleteAsync<T>(string url, string bearerToken)

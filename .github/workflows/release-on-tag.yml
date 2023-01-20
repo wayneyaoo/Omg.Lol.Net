@@ -28,9 +28,9 @@ jobs:
       - name : Increment assembly to version ${{ github.event.inputs.release-version }}
         id: version-bump
         uses: Thundernerd/dotnet-project-version-updater@v1.2
-          with:
-            file: "./Omg.Lol.Net/Omg.Lol.Net.csproj"
-            version: ${{ github.event.inputs.release-version }}
+        with:
+          file: "./Omg.Lol.Net/Omg.Lol.Net.csproj"
+          version: ${{ github.event.inputs.release-version }}
 
       # Only I can run this ... hopefully
       - name: Push new version to main

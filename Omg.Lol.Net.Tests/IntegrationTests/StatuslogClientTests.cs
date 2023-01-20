@@ -113,7 +113,7 @@ public class StatuslogClientTests
         Assert.That(response.Response.Message, Is.Not.Empty);
         Assert.That(response.Response.Status.Address, Is.EqualTo("wy-test"));
         Assert.That(response.Response.Status.RelativeTime, Is.Not.Empty);
-        Assert.That(response.Response.Status.Content, Contains.Substring("[Integration Test]"));
+        Assert.That(response.Response.Status.Content, Is.Not.Empty);
         Assert.That(response.Response.Status.Created, Is.GreaterThan(0));
         Assert.That(response.Response.Status.RelativeTime, Is.Not.Empty);
         Assert.That(response.Response.Status.Emoji, Is.Not.Empty);

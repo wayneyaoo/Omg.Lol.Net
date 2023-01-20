@@ -1,0 +1,48 @@
+# This CI is triggered manually on release:
+# 1. Increment assembly version in csproj
+# 2. Push the change to main
+# 3. Create a tag of the assembly version
+# 4. Push the tag to main
+# 5. Checkout the tag
+# 6. Build a release build
+# 7. Drop to Github Release
+# 8. Publish to nuget.org
+
+name: Release pipeline
+
+on: 
+  workflow_dispatch:
+    inputs:
+      release-version: 
+        description: "What's next version? (e.g., 1.0.0)"
+        required: true
+        type: string
+
+jobs:
+  Job_Name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name : Increment assembly to version ${{ github.event.inputs.release-version }}
+        id: version-bump
+        uses: Thundernerd/dotnet-project-version-updater@v1.2
+        with:
+          file: "./Omg.Lol.Net/Omg.Lol.Net.csproj"
+          version: ${{ github.event.inputs.release-version }}
+
+      # Only I can run this ... hopefully
+      - name: Push new version to main
+        run: |
+          git config user.name "Wayne Yao"
+          git config user.email "wx.yao@outlook.com"
+          git add -u
+          git commit -m "CI update: ${{ github.actor }} bump assembly version from ${{steps.version-bump.outputs.oldVersion}} to ${{steps.version-bump.outputs.newVersion}}"
+          git push
+
+      - name: Create ${{steps.version-bump.outputs.newVersion}} tag
+        uses: anothrNick/github-tag-action@1.61.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CUSTOM_TAG: ${{steps.version-bump.outputs.newVersion}}

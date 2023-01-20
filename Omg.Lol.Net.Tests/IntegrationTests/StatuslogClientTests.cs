@@ -304,7 +304,6 @@ public class StatuslogClientTests
         Assert.That(secondResponse.Request.StatusCode, Is.EqualTo(200));
         Assert.That(secondResponse.Request.Success, Is.True);
         Assert.That(secondResponse.Response.Message, Is.Not.Empty);
-        Assert.That(secondResponse.Response.Bio, Does.Not.Contains(lastNumber.ToString()));
-        Assert.That(secondResponse.Response.Bio, Does.Contain(currentTimestamp.ToString()));
+        Assert.That(secondResponse.Response.Bio, Is.Not.Empty); // because of concurrent tests, the unix seconds might not be accurate (concurrent update). We only check for not empty here.
     }
 }

@@ -66,21 +66,17 @@ public class StatuslogClientTests
         Assert.That(response.Response.Status.Emoji, Is.Not.Empty);
     }
 
-    // todo: this is a weird behavior that works: https://github.com/neatnik/omg.lol/discussions/515
     [Test]
-    public async Task RetrieveIndividualStatus_Should_Work_For_Non_Exist_Address()
+    public void RetrieveIndividualStatus_Should_Not_Work_For_Non_Exist_Address()
     {
         var random = Guid.NewGuid().ToString();
-        var response = await this.statuslogClient.RetrieveInvidualStatusAsync(random, "63c3865865377");
+        var exception = Assert.ThrowsAsync<ApiResponseException>(async () =>
+            await this.statuslogClient.RetrieveInvidualStatusAsync(random, "63c3865865377"));
 
-        Assert.That(response.Request.StatusCode, Is.EqualTo(200));
-        Assert.That(response.Request.Success, Is.True);
-        Assert.That(response.Response.Message, Is.Not.Empty);
-        Assert.That(response.Response.Status.Address, Is.EqualTo("wy-test"));
-        Assert.That(response.Response.Status.Content, Contains.Substring("[Integration Test]"));
-        Assert.That(response.Response.Status.Created, Is.EqualTo(1673758296));
-        Assert.That(response.Response.Status.RelativeTime, Is.Not.Empty);
-        Assert.That(response.Response.Status.Emoji, Is.Not.Empty);
+        Assert.That(exception.StatusCode, Is.EqualTo(404));
+        Assert.That(exception.Message, Is.Not.Empty);
+        Assert.That(exception.Success, Is.False);
+        Assert.That(exception.ServerResponse, Is.Not.Null);
     }
 
     [Test]

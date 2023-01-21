@@ -38,7 +38,7 @@ jobs:
       - name: Commit version bump and tag
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          file_pattern: *.csproj
+          file_pattern: '*.csproj'
           commit-message: "[CI commit] Bump from version ${{steps.version-bump.outputs.oldVersion}} to ${{steps.version-bump.outputs.newVersion}}"
           tagging_message: ${{ steps.version-bump.outputs.newVersion }}
           create-branch: false

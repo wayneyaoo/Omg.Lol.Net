@@ -40,9 +40,4 @@ jobs:
 
       - name: Dotnet package
         run: >
-          dotnet pack 
-            -c Release 
-            -v normal 
-            /p:Descriptoin="${{github.event.input.description }}" 
-            -o . 
-            ./Omg.Lol.Net/Omg.Lol.Net.csproj
+          dotnet pack -c Release /p:Descriptoin="${{github.event.inputs.description }}" -o . ./Omg.Lol.Net/Omg.Lol.Net.csproj

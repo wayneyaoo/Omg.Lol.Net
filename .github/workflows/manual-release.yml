@@ -7,12 +7,17 @@ on:
         description: "What's next version? (e.g., 1.0.0)"
         required: true
         type: string
+      description:
+        description: "Package description"
+        required: false
+        type: string
+        default: "An unofficial .NET SDK for https://omg.lol API service."
 
 permissions:
   contents: write
 
 jobs:
-  bump-and-tag:
+  bump-tag-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -32,3 +37,12 @@ jobs:
           commit_message: "[CI commit] Bump from version ${{steps.version-bump.outputs.oldVersion}} to ${{steps.version-bump.outputs.newVersion}}"
           tagging_message: ${{ steps.version-bump.outputs.newVersion }}
           create_branch: false
+
+      - name: Dotnet package
+        run: >
+          dotnet pack \
+            -c Release \
+            -v normal \
+            /p:Descriptoin="${{github.event.input.description }}" \
+            -o . \
+            ./Omg.Lol.Net/Omg.Lol.Net.csproj

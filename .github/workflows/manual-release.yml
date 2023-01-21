@@ -39,5 +39,9 @@ jobs:
           create_branch: false
 
       - name: Dotnet package
-        run: >
-          dotnet pack -c Release /p:Descriptoin="${{github.event.inputs.description }}" -o . ./Omg.Lol.Net/Omg.Lol.Net.csproj
+        run: > 
+          'dotnet pack 
+           -c Release 
+           /p:Descriptoin="${{github.event.inputs.description }}" 
+           -o . 
+           ./Omg.Lol.Net/Omg.Lol.Net.csproj'

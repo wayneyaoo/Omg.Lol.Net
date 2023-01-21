@@ -161,7 +161,7 @@ public class PastebinClientTests
         Assert.That(secondResponse.Response.PasteDetail.Content, Is.EqualTo(currentTimestamp));
         Assert.That(
             secondResponse.Response.PasteDetail.ModifiedOn,
-            Is.GreaterThanOrEqualTo(DateTimeOffset.UtcNow.ToUnixTimeSeconds() - 10)); // assume 10 seconds is enough
+            Is.GreaterThanOrEqualTo(DateTimeOffset.UtcNow.ToUnixTimeSeconds() - 20)); // assume 20 seconds is enough, even in concurrent test runs.
     }
 
     [Test]

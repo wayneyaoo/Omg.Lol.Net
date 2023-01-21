@@ -13,13 +13,13 @@ public class PurlsClient : IPurlsClient
 
     public string Url { get; set; } = string.Empty;
 
-    private const string RetrieveSpecificPurlEndpoint = "/address/{0}/purl/{1}";
+    private const string RetrieveSpecificPurlEndpoint = "/address/{0}/purls/{1}";
 
     private const string RetrieveAllPurlEndpoint = "/address/{0}/purls";
 
     private const string DeleteSpecificPurlEndpoint = RetrieveSpecificPurlEndpoint;
 
-    private const string CreateNewPurlEndpoint = "/address/{0}/purl";
+    private const string CreateNewPurlEndpoint = RetrieveAllPurlEndpoint;
 
     private readonly IApiServerCommunicationHandler apiServerCommunicationHandler;
 

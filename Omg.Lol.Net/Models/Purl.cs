@@ -11,7 +11,8 @@ public class Purl
     public string Url { get; set; } = string.Empty;
 
     [JsonProperty("counter")]
-    public int? Counter { get; set; }
-    // [JsonProperty("listed")]
-    // public bool Listed { get; set; }
+    public int Counter { get; set; }
+
+    [JsonProperty("listed")]
+    public bool Listed { get; set; }
 }

@@ -18,8 +18,11 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: read|write
+
 jobs:
-  Job_Name:
+  version-bump:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -32,17 +35,10 @@ jobs:
           file: "./Omg.Lol.Net/Omg.Lol.Net.csproj"
           version: ${{ github.event.inputs.release-version }}
 
-      # Only I can run this ... hopefully
-      - name: Push new version to main
-        run: |
-          git config user.name "Wayne Yao"
-          git config user.email "wx.yao@outlook.com"
-          git add -u
-          git commit -m "CI update: ${{ github.actor }} bump assembly version from ${{steps.version-bump.outputs.oldVersion}} to ${{steps.version-bump.outputs.newVersion}}"
-          git push
-
-      - name: Create ${{steps.version-bump.outputs.newVersion}} tag
-        uses: anothrNick/github-tag-action@1.61.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CUSTOM_TAG: ${{steps.version-bump.outputs.newVersion}}
+      - name: Commit version bump and tag
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          file_pattern: *.csproj
+          commit-message: "[CI commit] Bump from version ${{steps.version-bump.outputs.oldVersion}} to ${{steps.version-bump.outputs.newVersion}}"
+          tagging_message: ${{ steps.version-bump.outputs.newVersion }}
+          create-branch: false

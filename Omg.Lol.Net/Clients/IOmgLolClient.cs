@@ -11,7 +11,7 @@ public interface IOmgLolClient : IApiInfoCarrier
 
     public IServiceClient ServiceClient { get; }
 
-    public IDNSClient DnsClient { get; }
+    public IDnsClient DnsClient { get; }
 
     public IPurlsClient PurlsClient { get; }
 

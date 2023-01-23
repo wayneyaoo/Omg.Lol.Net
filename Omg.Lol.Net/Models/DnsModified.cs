@@ -2,6 +2,7 @@
 
 using Newtonsoft.Json;
 
+// TODO: Come back when this https://github.com/neatnik/omg.lol/issues/543 is fixed.
 public class DnsModified
 {
     [JsonProperty("message")]

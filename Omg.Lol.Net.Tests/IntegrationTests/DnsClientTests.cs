@@ -93,15 +93,16 @@ public class DnsClientTests
         // Verify Create works.
         var firstGetResponse = await this.dnsClient.RetrieveDnsRecordsAsync("wy-test");
 
-        var updateResponse = await this.dnsClient.UpdateDnsRecordAsync("wy-test", id, new DnsRecordPost()
+        var updateResponse = await this.dnsClient.UpdateDnsRecordAsync("wy-test", new DnsRecordUpdate()
         {
+            Id = id,
             Data = $"[Integration Test] {random2}",
             Name = $"{random2}",
             Ttl = ttl,
             Type = DnsRecordType.TXT,
         });
 
-        await Task.Delay(TimeSpan.FromSeconds(2));
+        await Task.Delay(TimeSpan.FromSeconds(3));
 
         var secondGetResponse = await this.dnsClient.RetrieveDnsRecordsAsync("wy-test");
 

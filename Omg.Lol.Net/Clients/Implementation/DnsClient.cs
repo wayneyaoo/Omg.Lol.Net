@@ -17,9 +17,9 @@ public class DnsClient : IDnsClient
 
     private const string CreateaDnsRecordEndpoint = RetrieveDnsRecordsEndpoint;
 
-    private const string UpdateExistingDnsRecordEnpoint = "/address/{0}/dns/{1}";
+    private const string UpdateExistingDnsRecordEnpoint = RetrieveDnsRecordsEndpoint;
 
-    private const string DeleteDnsRecordEnpoint = UpdateExistingDnsRecordEnpoint;
+    private const string DeleteDnsRecordEnpoint = "/address/{0}/dns/{1}";
 
     private readonly IApiServerCommunicationHandler apiServerCommunicationHandler;
 
@@ -41,9 +41,10 @@ public class DnsClient : IDnsClient
                 this.Token)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<DnsModified>> UpdateDnsRecordAsync(string address, string dnsId, DnsRecordPost record)
-        => await this.apiServerCommunicationHandler.PatchAsync<CommonResponse<DnsModified>>(
-                this.Url + string.Format(UpdateExistingDnsRecordEnpoint, address, dnsId),
+    // TODO: Come back when this https://github.com/neatnik/omg.lol/issues/532 is resolved.
+    public async Task<CommonResponse<DnsModified>> UpdateDnsRecordAsync(string address, DnsRecordUpdate record)
+        => await this.apiServerCommunicationHandler.PutAsync<CommonResponse<DnsModified>>(
+                this.Url + string.Format(UpdateExistingDnsRecordEnpoint, address),
                 JsonConvert.SerializeObject(record),
                 this.Token)
             .ConfigureAwait(false);

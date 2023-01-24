@@ -13,6 +13,6 @@ public interface IPurlsClient : IApiInfoCarrier
 
     public Task<CommonResponse<MultiplePurls>> RetrievePurlsAsync(string address);
 
-    // todo: this doesn't follow the API, to save an extra model.
+    // todo: this return value doesn't follow the API, to save an extra model.
     public Task<CommonResponse<MessageItem>> CreatePurlAsync(string address, PurlPost purl);
 }

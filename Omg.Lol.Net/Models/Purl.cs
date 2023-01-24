@@ -10,9 +10,11 @@ public class Purl
     [JsonProperty("url")]
     public string Url { get; set; } = string.Empty;
 
+    // TODO: revisit this https://github.com/neatnik/omg.lol/issues/531 when resolved
     [JsonProperty("counter")]
-    public int Counter { get; set; }
+    public string Counter { get; set; }
 
+    // TODO: revisit this https://github.com/neatnik/omg.lol/issues/531 when resolved
     [JsonProperty("listed")]
-    public bool Listed { get; set; }
+    public string Listed { get; set; }
 }

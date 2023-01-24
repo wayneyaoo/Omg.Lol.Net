@@ -1,4 +1,4 @@
-﻿namespace Omg.Lol.Net.Models;
+﻿namespace Omg.Lol.Net.Models.Purl;
 
 using Newtonsoft.Json;
 

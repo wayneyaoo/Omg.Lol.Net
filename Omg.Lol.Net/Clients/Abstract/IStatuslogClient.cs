@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Omg.Lol.Net.Infrastructure;
 using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.Items;
+using Omg.Lol.Net.Models.Status;
 
 public interface IStatuslogClient : IApiInfoCarrier
 {

@@ -3,6 +3,7 @@
 using System.Threading.Tasks;
 using Omg.Lol.Net.Infrastructure;
 using Omg.Lol.Net.Models;
+using Omg.Lol.Net.Models.Dns;
 using Omg.Lol.Net.Models.Items;
 
 public interface IDnsClient : IApiInfoCarrier

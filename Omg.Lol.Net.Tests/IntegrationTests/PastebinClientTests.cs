@@ -8,7 +8,7 @@ using Omg.Lol.Net.Clients.Abstract;
 using Omg.Lol.Net.Clients.Implementation;
 using Omg.Lol.Net.Infrastructure;
 using Omg.Lol.Net.Infrastructure.Exceptions;
-using Omg.Lol.Net.Models;
+using Omg.Lol.Net.Models.Paste;
 
 [TestFixture]
 public class PastebinClientTests

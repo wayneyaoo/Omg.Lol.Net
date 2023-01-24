@@ -53,15 +53,12 @@ public class DefaultHttpClient : IHttpClient
             RequestUri = new Uri(url),
         };
 
-        if (content is not null)
-        {
-            message.Content = content;
-        }
-
         if (bearer is not null)
         {
             message.Headers.Authorization = new AuthenticationHeaderValue(BearerAuth, bearer);
         }
+
+        message.Content = content;
 
         return await this.RequestAsync(message).ConfigureAwait(false);
     }

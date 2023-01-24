@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Omg.Lol.Net.Clients.Abstract;
 using Omg.Lol.Net.Infrastructure;
 using Omg.Lol.Net.Models;
+using Omg.Lol.Net.Models.Address;
 
 public class AddressClient : IAddressClient
 {

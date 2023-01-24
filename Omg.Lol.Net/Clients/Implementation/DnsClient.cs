@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Omg.Lol.Net.Clients.Abstract;
 using Omg.Lol.Net.Infrastructure;
 using Omg.Lol.Net.Models;
+using Omg.Lol.Net.Models.Dns;
 using Omg.Lol.Net.Models.Items;
 
 public class DnsClient : IDnsClient

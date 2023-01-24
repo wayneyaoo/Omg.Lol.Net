@@ -34,6 +34,10 @@ public class DefaultHttpClient : IHttpClient
         => await this.SendInternalAsync(url, new HttpMethod("PATCH"), bearerToken, new StringContent(content))
             .ConfigureAwait(false);
 
+    public async Task<HttpResponseMessage> PutAsync(string url, string content, string bearerToken)
+        => await this.SendInternalAsync(url, HttpMethod.Put, bearerToken, new StringContent(content))
+            .ConfigureAwait(false);
+
     public async Task<HttpResponseMessage> DeleteAsync(string url, string bearerToken)
         => await this.SendInternalAsync(url, HttpMethod.Delete, bearerToken).ConfigureAwait(false);
 

@@ -25,17 +25,17 @@ internal class OmgLolClient : IOmgLolClient
 
     public IStatuslogClient StatuslogClient => this.statuslogClient.Value;
 
-    private Lazy<AddressClient> addressClient;
+    private readonly Lazy<AddressClient> addressClient;
 
-    private Lazy<ServiceClient> serviceClient;
+    private readonly Lazy<ServiceClient> serviceClient;
 
-    private Lazy<DnsClient> dnsClient;
+    private readonly Lazy<DnsClient> dnsClient;
 
-    private Lazy<PurlsClient> purlsClient;
+    private readonly Lazy<PurlsClient> purlsClient;
 
-    private Lazy<PastebinClient> pastebinClient;
+    private readonly Lazy<PastebinClient> pastebinClient;
 
-    private Lazy<StatuslogClient> statuslogClient;
+    private readonly Lazy<StatuslogClient> statuslogClient;
 
     public OmgLolClient(IApiServerCommunicationHandler apiServerCommunicationHandler)
     {

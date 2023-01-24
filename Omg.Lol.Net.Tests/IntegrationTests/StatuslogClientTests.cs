@@ -11,6 +11,7 @@ using Omg.Lol.Net.Infrastructure;
 using Omg.Lol.Net.Infrastructure.Exceptions;
 using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.Items;
+using Omg.Lol.Net.Models.Status;
 
 [TestFixture]
 public class StatuslogClientTests

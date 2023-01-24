@@ -6,6 +6,7 @@ using Omg.Lol.Net.Clients.Abstract;
 using Omg.Lol.Net.Infrastructure;
 using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.Items;
+using Omg.Lol.Net.Models.Paste;
 
 public class PastebinClient : IPastebinClient
 {

@@ -1,4 +1,4 @@
-﻿namespace Omg.Lol.Net.Models;
+﻿namespace Omg.Lol.Net.Models.Paste;
 
 using System;
 using Newtonsoft.Json;

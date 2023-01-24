@@ -1,4 +1,4 @@
-﻿namespace Omg.Lol.Net.Models;
+﻿namespace Omg.Lol.Net.Models.Status;
 
 using System;
 using Newtonsoft.Json;
@@ -9,5 +9,5 @@ public class MultipleStatuses
     public string Message { get; set; } = string.Empty;
 
     [JsonProperty("statuses")]
-    public Status[] Statuses { get; set; } = Array.Empty<Status>();
+    public Models.Status.Status[] Statuses { get; set; } = Array.Empty<Models.Status.Status>();
 }

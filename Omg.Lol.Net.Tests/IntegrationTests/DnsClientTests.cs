@@ -5,11 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using NSubstitute;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 using Omg.Lol.Net.Clients.Abstract;
 using Omg.Lol.Net.Clients.Implementation;
 using Omg.Lol.Net.Infrastructure;
-using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.Dns;
 
 [TestFixture]

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>0.0.1-alpha2</Version>
+    <Version>0.0.1-alpha3</Version>
     <Authors>Wayne Yao</Authors>
     <PackageId>Omg.Lol.Net</PackageId>
     <PackageProjectUrl>https://github.com/wayneyaoo/Omg.Lol.Net</PackageProjectUrl>

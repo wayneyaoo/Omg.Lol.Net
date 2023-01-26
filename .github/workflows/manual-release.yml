@@ -58,6 +58,6 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/') # only works in a tag
         with:
           prerelease: ${{ github.event.inputs.pre-release}}
-          files:|
+          files: |
             *.nupkg
             LICENSE

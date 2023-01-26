@@ -45,6 +45,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           prerelease: ${{ github.event.inputs.pre-release }}
-          files: *.nupkg
+          files: "*.nupkg"
           tag_name: v${{ steps.version-bump.outputs.newVersion }}
           fail_on_unmatched_files: true

@@ -155,7 +155,7 @@ public class StatuslogClientTests
             Assert.That(status.Address, Is.Not.Empty);
             Assert.That(status.Created, Is.GreaterThan(0));
             Assert.That(status.RelativeTime, Is.Not.Empty);
-            Assert.That(status.Emoji, Is.Not.Empty);
+            // Assert.That(status.Emoji, Is.Not.Empty); //https://github.com/neatnik/omg.lol/discussions/553
             Assert.That(status.Id, Is.Not.Empty);
             Assert.That(status.Content, Is.Not.Empty);
         }

@@ -42,9 +42,7 @@ jobs:
           create_branch: false
 
       - name: Checkout new tag
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ steps.verion-bump-outputs.newVersion }}
+        run: git pull --prune --prune-tags && git checkout ${{ steps.version-bumpoutputs.newVersion }}
 
       - name: Dotnet package
         run: 'dotnet pack 

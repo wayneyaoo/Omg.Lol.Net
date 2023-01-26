@@ -1,4 +1,4 @@
-name: Integration Test On Pull Request
+name: Integration Test
 
 on: 
  workflow_dispatch:
@@ -26,7 +26,7 @@ jobs:
       - name: Check dotnet version
         run: dotnet --list-sdks
       
-      - name: Checkout
+      - name: Checkout Repo
         uses: actions/checkout@v3
       
       - name: Build
@@ -35,5 +35,5 @@ jobs:
       - name: Test
         env:
           OMG_LOL_MYSTERIOUS_API_KEY: ${{ secrets.OMG_LOL_MYSTERIOUS_API_KEY }}
-        run: dotnet test -v normal -c Release --no-build ./Omg.Lol.Net.sln
+        run: dotnet test -c Release --no-build ./Omg.Lol.Net.sln
     

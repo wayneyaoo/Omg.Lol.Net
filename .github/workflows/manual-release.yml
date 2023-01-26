@@ -42,7 +42,7 @@ jobs:
           create_branch: false
 
       - name: Checkout new tag
-        run: git pull --prune && git checkout ${{ steps.version-bumpoutputs.newVersion }}
+        run: git pull --prune && git checkout ${{ steps.version-bump.outputs.newVersion }}
 
       - name: Dotnet package
         run: 'dotnet pack 

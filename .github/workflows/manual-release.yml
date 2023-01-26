@@ -7,12 +7,20 @@ on:
         description: "What's next version? (e.g., 1.0.0)"
         required: true
         type: string
+      pre-release:
+        type: boolean
+        default: true
+      description:
+        description: "Package description"
+        required: false
+        type: string
+        default: "An unofficial .NET SDK for https://omg.lol API service."
 
 permissions:
   contents: write
 
 jobs:
-  bump-and-tag:
+  bump-tag-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -32,3 +40,29 @@ jobs:
           commit_message: "[CI commit] Bump from version ${{steps.version-bump.outputs.oldVersion}} to ${{steps.version-bump.outputs.newVersion}}"
           tagging_message: ${{ steps.version-bump.outputs.newVersion }}
           create_branch: false
+
+      - name: Checkout new tag
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ steps.version-bump.outputs.newVersion }}
+
+      - name: Dotnet package
+        run: 'dotnet pack 
+              -c Release 
+              /p:Descriptoin="${{github.event.inputs.description }}" 
+              -o . 
+              ./Omg.Lol.Net/Omg.Lol.Net.csproj'
+
+      - name: See what ref is
+        run: echo "${{ github.ref }}"
+
+      - name: Drop to Github Release
+        uses: softprops/action-gh-release@v1
+        with:
+          prerelease: ${{ github.event.inputs.pre-release }}
+          files: |
+            *.nupkg
+            LICENSE
+          tag_name: v${{ steps.version-bump.outputs.newVersion }}
+          fail_on_unmatched_files: true

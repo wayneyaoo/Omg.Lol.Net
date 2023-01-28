@@ -48,3 +48,4 @@ jobs:
           files: "*.nupkg"
           tag_name: v${{ steps.version-bump.outputs.newVersion }}
           fail_on_unmatched_files: true
+          generate_release_notes: true

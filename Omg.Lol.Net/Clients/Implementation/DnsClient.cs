@@ -8,7 +8,7 @@ using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.Dns;
 using Omg.Lol.Net.Models.Items;
 
-public class DnsClient : IDnsClient
+public sealed class DnsClient : IDnsClient
 {
     public string Token { get; set; } = string.Empty;
 

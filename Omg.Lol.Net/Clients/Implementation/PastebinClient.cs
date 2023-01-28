@@ -8,7 +8,7 @@ using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.Items;
 using Omg.Lol.Net.Models.Paste;
 
-public class PastebinClient : IPastebinClient
+public sealed class PastebinClient : IPastebinClient
 {
     public string Token { get; set; } = string.Empty;
 

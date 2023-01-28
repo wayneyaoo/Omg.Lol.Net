@@ -6,7 +6,7 @@ using Omg.Lol.Net.Infrastructure;
 using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.Address;
 
-public class AddressClient : IAddressClient
+public sealed class AddressClient : IAddressClient
 {
     public string Token { get; set; } = string.Empty;
 

@@ -8,7 +8,7 @@ using Omg.Lol.Net.Infrastructure.Exceptions;
 using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.Items;
 
-public class ApiServerCommunicationHandler : IApiServerCommunicationHandler
+public sealed class ApiServerCommunicationHandler : IApiServerCommunicationHandler
 {
     private readonly Lazy<IHttpClient> httpClient;
 

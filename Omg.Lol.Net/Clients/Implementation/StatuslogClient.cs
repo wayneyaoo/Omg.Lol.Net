@@ -8,7 +8,7 @@ using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.Items;
 using Omg.Lol.Net.Models.Status;
 
-public class StatuslogClient : IStatuslogClient
+public sealed class StatuslogClient : IStatuslogClient
 {
     public string Token { get; set; } = string.Empty;
 

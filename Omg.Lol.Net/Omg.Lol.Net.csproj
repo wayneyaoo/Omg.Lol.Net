@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>0.0.1-alpha</Version>
+    <Version>0.0.1-dev</Version>
     <Authors>Wayne Yao</Authors>
     <Copyright>Copyright (c) 2023 Wayne Yao</Copyright>
     <Description>An unoffical .NET SDK for https://omg.lol API service.</Description>

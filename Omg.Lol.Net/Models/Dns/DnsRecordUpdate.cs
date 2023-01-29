@@ -10,7 +10,7 @@ public class DnsRecordUpdate
     /// TODO: review this perodically to see if this gets fixed.
     /// </summary>
     [JsonProperty("id")]
-    public string Id { get; set; }
+    public string Id { get; set; } = string.Empty;
 
     [JsonProperty("type")]
     [JsonConverter(typeof(StringEnumConverter))]

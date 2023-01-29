@@ -7,10 +7,10 @@ using Newtonsoft.Json;
 public class AddressInformation
 {
     [JsonProperty("address")]
-    public string Address { get; set; }
+    public string Address { get; set; } = string.Empty;
 
     [JsonProperty("message")]
-    public string Message { get; set; }
+    public string Message { get; set; } = string.Empty;
 
     [JsonProperty("registration")]
     public Registration Registration { get; set; }
@@ -37,7 +37,7 @@ public class AddressInformation
 public class Registration
 {
     [JsonProperty("message")]
-    public string Message { get; set; }
+    public string Message { get; set; } = string.Empty;
 
     [JsonProperty("unix_epoch_time")]
     public long? UnixEpochTime { get; set; }
@@ -58,7 +58,7 @@ public class Registration
 public class Verification
 {
     [JsonProperty("message")]
-    public string Message { get; set; }
+    public string Message { get; set; } = string.Empty;
 
     [JsonProperty("verified")]
     public bool Verified { get; set; }

@@ -1,0 +1,21 @@
+changelog:
+  exclude:
+    labels:
+      - trivial
+
+  categories:
+    - title: Breaking change
+      labels:
+        - breaking-change
+    
+    - title: Bug Fix
+      labels:
+        - bug-fix
+
+    - title: New & Improvement
+      labels:
+        - new
+
+    - title: Miscellaneous
+      labels:
+        - "*"

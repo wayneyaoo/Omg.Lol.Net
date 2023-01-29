@@ -1,7 +1,7 @@
 changelog:
   exclude:
     labels:
-      - trivial
+      - release-ignore
 
   categories:
     - title: Breaking change

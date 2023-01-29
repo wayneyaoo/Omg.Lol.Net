@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>0.0.1-alpha</Version>
+    <Version>0.0.1-dev</Version>
     <Authors>Wayne Yao</Authors>
     <Copyright>Copyright (c) 2023 Wayne Yao</Copyright>
     <Description>An unoffical .NET SDK for https://omg.lol API service.</Description>
@@ -11,7 +11,8 @@
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/wayneyaoo/Omg.Lol.Net</RepositoryUrl>
-    
+    <PackageReleaseNotes>See release page for changelog: https://github.com/wayneyaoo/Omg.Lol.Net/releases.</PackageReleaseNotes>
+
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <TargetFrameworks>net6.0;net7.0;netstandard2.0;netstandard2.1</TargetFrameworks>
@@ -24,7 +25,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    
+
     <None Include="../LICENSE" Pack="true" PackagePath="./" />
     <None Include="../README.md" Pack="true" PackagePath="./" />
   </ItemGroup>

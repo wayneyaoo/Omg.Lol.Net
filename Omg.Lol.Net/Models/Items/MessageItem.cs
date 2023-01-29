@@ -5,5 +5,5 @@ using Newtonsoft.Json;
 public class MessageItem
 {
     [JsonProperty("message")]
-    public string Message { get; set; }
+    public string Message { get; set; } = string.Empty;
 }

@@ -15,3 +15,7 @@ changelog:
     - title: New & Improvement
       labels:
         - new
+
+    - title: Miscellaneous
+      labels:
+        - "*"

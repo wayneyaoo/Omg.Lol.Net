@@ -78,6 +78,7 @@ public class AddressClientTests
         Assert.That(response.Request.Success, Is.True);
         Assert.That(response.Request.StatusCode, Is.EqualTo(200));
 
+        Assert.That(response.Response.Message, Is.Not.Null);
         Assert.That(response.Response.Address, Is.EqualTo(randomAddress));
         Assert.That(response.Response.Available, Is.True);
         Assert.That(response.Response.Availability, Is.EqualTo("available"));
@@ -102,43 +103,25 @@ public class AddressClientTests
     }
 
     [Test]
-    public async Task RetrieveAddressExpiration_Account_Never_Expires()
+    public async Task RetrieveAddressExpiration_Account_Not_Close_To_Expire()
     {
-        CommonResponse<AddressExpiration> response = await this.addressClient.RetrieveAddressExpirationAsync("adam");
+        CommonResponse<AddressExpirationPublicView> response = await this.addressClient.RetrieveAddressExpirationAsync("adam");
 
         Assert.That(response.Request.StatusCode, Is.EqualTo(200));
         Assert.That(response.Request.Success, Is.True);
 
         Assert.That(response.Response.Expired, Is.False);
-        Assert.That(response.Response.WillExpire, Is.False);
-    }
-
-    [Test]
-    public async Task RetrieveAddressExpiration_Account_Expirable_Not_Expired_Yet()
-    {
-        CommonResponse<AddressExpiration> response = await this.addressClient.RetrieveAddressExpirationAsync("wy-test");
-
-        Assert.That(response.Request.StatusCode, Is.EqualTo(200));
-        Assert.That(response.Request.Success, Is.True);
-
-        Assert.That(response.Response.Expired, Is.False);
-        Assert.That(response.Response.WillExpire, Is.True);
-        Assert.That(response.Response.UnixEpochTime, Is.GreaterThan(0));
         Assert.That(response.Response.Message, Is.Not.Empty);
-        Assert.That(response.Response.Iso8601_Time, Is.GreaterThan(DateTimeOffset.Now));
-        Assert.That(response.Response.Rfc2822_Time, Is.Not.Empty);
-        Assert.That(response.Response.RelativeTime, Is.Not.Empty);
     }
 
     [Test]
     public async Task RetrieveAccountInformation_Public_Should_Retrieve_AddressInformation()
     {
-        CommonResponse<AddressInformation> response = await this.addressClient.RetrieveAddressInformationAsync("adam");
+        CommonResponse<PublicAddressInformation> response = await this.addressClient.RetrievePublicAddressInformationAsync("adam");
 
         Assert.That(response.Request.StatusCode, Is.EqualTo(200));
         Assert.That(response.Request.Success, Is.True);
 
-        Assert.That(response.Response.Owner, Is.Null);
         Assert.That(response.Response.Address, Is.EqualTo("adam"));
         Assert.That(response.Response.Message, Is.Not.Empty);
         Assert.That(response.Response.Registration.Message, Is.Not.Empty);
@@ -148,16 +131,15 @@ public class AddressClientTests
         Assert.That(
             response.Response.Registration.UnixEpochTime,
             Is.LessThan(DateTimeOffset.UtcNow.ToUnixTimeSeconds()));
-        Assert.That(response.Response.Expiration.Message, Is.Not.Empty);
-        Assert.That(response.Response.Expiration.WillExpire, Is.False);
-        Assert.That(response.Response.Expiration.Expired, Is.False);
+        Assert.That(response.Response.ExpirationPublicView.Message, Is.Not.Empty);
+        Assert.That(response.Response.ExpirationPublicView.Expired, Is.False);
         Assert.That(response.Response.Verification.Verified, Is.True);
     }
 
     [Test]
     public async Task RetrieveAccountInformation_Private_Should_Retrieve_AddressInformation()
     {
-        CommonResponse<AddressInformation> response =
+        CommonResponse<PrivateAddressInformation> response =
             await this.addressClient.RetrievePrivateAddressInformationAsync("wy-test");
 
         Assert.That(response.Request.StatusCode, Is.EqualTo(200));
@@ -173,9 +155,9 @@ public class AddressClientTests
         Assert.That(
             response.Response.Registration.UnixEpochTime,
             Is.LessThan(DateTimeOffset.UtcNow.ToUnixTimeSeconds()));
-        Assert.That(response.Response.Expiration.Message, Is.Not.Empty);
-        Assert.That(response.Response.Expiration.WillExpire, Is.True);
-        Assert.That(response.Response.Expiration.Expired, Is.False);
+        Assert.That(response.Response.ExpirationPublicView.Message, Is.Not.Empty);
+        Assert.That(response.Response.ExpirationPublicView.WillExpire, Is.True);
+        Assert.That(response.Response.ExpirationPublicView.Expired, Is.False);
         Assert.That(response.Response.Verification.Verified, Is.False);
     }
 

@@ -31,18 +31,18 @@ public sealed class AddressClient : IAddressClient
             this.Url + string.Format(RetreiveAddressAvailabilityEndpoint, address))
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<AddressExpiration>> RetrieveAddressExpirationAsync(string address)
-        => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AddressExpiration>>(
+    public async Task<CommonResponse<AddressExpirationPublicView>> RetrieveAddressExpirationAsync(string address)
+        => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AddressExpirationPublicView>>(
             this.Url + string.Format(RetrieveAddressExpirationEndpoint, address))
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<AddressInformation>> RetrieveAddressInformationAsync(string address)
-        => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AddressInformation>>(
+    public async Task<CommonResponse<PublicAddressInformation>> RetrievePublicAddressInformationAsync(string address)
+        => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<PublicAddressInformation>>(
             this.Url + string.Format(RetrieveAddressInformationEndpoint, address))
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<AddressInformation>> RetrievePrivateAddressInformationAsync(string address)
-        => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AddressInformation>>(
+    public async Task<CommonResponse<PrivateAddressInformation>> RetrievePrivateAddressInformationAsync(string address)
+        => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<PrivateAddressInformation>>(
             this.Url + string.Format(RetrieveAddressInformationEndpoint, address), this.Token)
             .ConfigureAwait(false);
 }

@@ -3,7 +3,10 @@
 using System;
 using Newtonsoft.Json;
 
-public class AddressExpiration
+/// <summary>
+/// This a part of <see cref="PublicAddressInformation"/> model.
+/// </summary>
+public class Registration
 {
     [JsonProperty("message")]
     public string Message { get; set; } = string.Empty;
@@ -19,10 +22,4 @@ public class AddressExpiration
 
     [JsonProperty("relative_time")]
     public string? RelativeTime { get; set; }
-
-    [JsonProperty("expired")]
-    public bool Expired { get; set; }
-
-    [JsonProperty("will_expire")]
-    public bool WillExpire { get; set; }
 }

@@ -9,9 +9,9 @@ public interface IAddressClient : IApiInfoCarrier
 {
     public Task<CommonResponse<AddressAvailability>> RetrieveAddressAvailabilityAsync(string address);
 
-    public Task<CommonResponse<AddressExpiration>> RetrieveAddressExpirationAsync(string address);
+    public Task<CommonResponse<AddressExpirationPublicView>> RetrieveAddressExpirationAsync(string address);
 
-    public Task<CommonResponse<AddressInformation>> RetrieveAddressInformationAsync(string address);
+    public Task<CommonResponse<PublicAddressInformation>> RetrievePublicAddressInformationAsync(string address);
 
-    public Task<CommonResponse<AddressInformation>> RetrievePrivateAddressInformationAsync(string address);
+    public Task<CommonResponse<PrivateAddressInformation>> RetrievePrivateAddressInformationAsync(string address);
 }

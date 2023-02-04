@@ -28,4 +28,11 @@ jobs:
       - name: Coverage profiling
         env:
           OMG_LOL_MYSTERIOUS_API_KEY: ${{ secrets.OMG_LOL_MYSTERIOUS_API_KEY }}
-        run: dotnet test -c Release -v normal --collect:"XPlat Code Coverage"
+        run: dotnet test -c Release -v normal --collect:"XPlat Code Coverage" --results-directory ./test-results
+
+      - name: Coverage reporting
+        uses: codecov/codecov-action@v3
+        with:
+          directory: ./test-results
+
+

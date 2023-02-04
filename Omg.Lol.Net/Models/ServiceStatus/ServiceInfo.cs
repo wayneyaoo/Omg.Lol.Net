@@ -1,6 +1,5 @@
 ﻿namespace Omg.Lol.Net.Models.ServiceStatus;
 
-using System;
 using Newtonsoft.Json;
 
 public class ServiceInfo

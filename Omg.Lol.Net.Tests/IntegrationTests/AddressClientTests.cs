@@ -50,10 +50,11 @@ public class AddressClientTests
     }
 
     [Test]
-    public async Task RetrieveAddressAvailability_Address_Should_Not_Be_Available()
+    public async Task RetrieveAddressAvailability_Address_Is_Not_Available()
     {
         // Act
-        CommonResponse<AddressAvailability> response = await this.addressClient.RetrieveAddressAvailabilityAsync("adam");
+        CommonResponse<AddressAvailability>
+            response = await this.addressClient.RetrieveAddressAvailabilityAsync("adam");
 
         // Assert
         Assert.That(response.Request.Success, Is.True);
@@ -62,10 +63,12 @@ public class AddressClientTests
         Assert.That(response.Response.Address, Is.EqualTo("adam"));
         Assert.That(response.Response.Available, Is.False);
         Assert.That(response.Response.Availability, Is.EqualTo("unavailable"));
+        Assert.That(response.Response.PunyCode, Is.Empty);
+        Assert.That(response.Response.SeeAlso.Length, Is.EqualTo(0));
     }
 
     [Test]
-    public async Task RetrieveAddressAvailability_Address_Should_Be_Available()
+    public async Task RetrieveAddressAvailability_Address_Is_Available()
     {
         // Arrange
         var randomAddress = Guid.NewGuid().ToString();
@@ -82,6 +85,27 @@ public class AddressClientTests
         Assert.That(response.Response.Address, Is.EqualTo(randomAddress));
         Assert.That(response.Response.Available, Is.True);
         Assert.That(response.Response.Availability, Is.EqualTo("available"));
+        Assert.That(response.Response.PunyCode, Is.Empty);
+        Assert.That(response.Response.SeeAlso.Length, Is.EqualTo(0));
+    }
+
+    [Test]
+    public async Task RetrieveAddressAvailability_Address_Is_Available_But_Will_Get_Encoded()
+    {
+        // Act
+        CommonResponse<AddressAvailability> response =
+            await this.addressClient.RetrieveAddressAvailabilityAsync("✔️");
+
+        // Assert
+        Assert.That(response.Request.Success, Is.True);
+        Assert.That(response.Request.StatusCode, Is.EqualTo(200));
+
+        Assert.That(response.Response.Message, Is.Not.Null);
+        Assert.That(response.Response.Address, Is.EqualTo("✔️"));
+        Assert.That(response.Response.Available, Is.True);
+        Assert.That(response.Response.Availability, Is.EqualTo("available"));
+        Assert.That(response.Response.PunyCode, Is.Not.Empty);
+        Assert.That(response.Response.SeeAlso.Length, Is.GreaterThanOrEqualTo(2));
     }
 
     [Test]
@@ -105,7 +129,8 @@ public class AddressClientTests
     [Test]
     public async Task RetrieveAddressExpiration_Account_Not_Close_To_Expire()
     {
-        CommonResponse<AddressExpirationPublicView> response = await this.addressClient.RetrieveAddressExpirationAsync("adam");
+        CommonResponse<AddressExpirationPublicView> response =
+            await this.addressClient.RetrieveAddressExpirationAsync("adam");
 
         Assert.That(response.Request.StatusCode, Is.EqualTo(200));
         Assert.That(response.Request.Success, Is.True);
@@ -115,9 +140,10 @@ public class AddressClientTests
     }
 
     [Test]
-    public async Task RetrieveAccountInformation_Public_Should_Retrieve_AddressInformation()
+    public async Task RetrieveAccountInformation_Public_Should_Retrieve_PublicAddressInformation()
     {
-        CommonResponse<PublicAddressInformation> response = await this.addressClient.RetrievePublicAddressInformationAsync("adam");
+        CommonResponse<PublicAddressInformation> response =
+            await this.addressClient.RetrievePublicAddressInformationAsync("adam");
 
         Assert.That(response.Request.StatusCode, Is.EqualTo(200));
         Assert.That(response.Request.Success, Is.True);
@@ -134,10 +160,12 @@ public class AddressClientTests
         Assert.That(response.Response.ExpirationPublicView.Message, Is.Not.Empty);
         Assert.That(response.Response.ExpirationPublicView.Expired, Is.False);
         Assert.That(response.Response.Verification.Verified, Is.True);
+        Assert.That(response.Response.Verification.Message, Is.Not.Empty);
+        Assert.That(response.Response.Keys, Is.Not.Empty);
     }
 
     [Test]
-    public async Task RetrieveAccountInformation_Private_Should_Retrieve_AddressInformation()
+    public async Task RetrieveAccountInformation_Private_Should_Retrieve_PrivateAddressInformation()
     {
         CommonResponse<PrivateAddressInformation> response =
             await this.addressClient.RetrievePrivateAddressInformationAsync("wy-test");
@@ -158,7 +186,13 @@ public class AddressClientTests
         Assert.That(response.Response.ExpirationPublicView.Message, Is.Not.Empty);
         Assert.That(response.Response.ExpirationPublicView.WillExpire, Is.True);
         Assert.That(response.Response.ExpirationPublicView.Expired, Is.False);
+        Assert.That(response.Response.ExpirationPublicView.RelativeTime, Is.Not.Empty);
+        Assert.That(response.Response.ExpirationPublicView.UnixEpochTime, Is.GreaterThan(0));
+        Assert.That(response.Response.ExpirationPublicView.Iso8601Time, Is.GreaterThan(DateTimeOffset.MinValue));
+        Assert.That(response.Response.ExpirationPublicView.Rfc2822Time, Is.Not.Empty);
         Assert.That(response.Response.Verification.Verified, Is.False);
+        Assert.That(response.Response.Verification.Message, Is.Not.Empty);
+        Assert.That(response.Response.Keys, Is.Empty);
     }
 
     [Test]

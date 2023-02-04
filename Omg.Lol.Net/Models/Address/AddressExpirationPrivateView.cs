@@ -12,7 +12,7 @@ public class AddressExpirationPrivateView
     public long UnixEpochTime { get; set; } = long.MinValue;
 
     [JsonProperty("iso_8601_time")]
-    public DateTimeOffset Iso8601Time { get; set; }
+    public DateTimeOffset Iso8601Time { get; set; } = DateTimeOffset.MinValue;
 
     [JsonProperty("rfc_2822_time")]
     public string Rfc2822Time { get; set; } = string.Empty;

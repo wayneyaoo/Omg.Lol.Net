@@ -1,5 +1,10 @@
 # Omg.Lol.Net
 
+[![Codecov](https://img.shields.io/codecov/c/github/wayneyaoo/omg.lol.net)](https://codecov.io/github/wayneyaoo/Omg.Lol.Net)
+[![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/omg.lol.net?color=red)](https://www.nuget.org/packages/Omg.Lol.Net/)
+[![GitHub](https://img.shields.io/github/license/wayneyaoo/omg.lol.net)](./LICENSE)
+![Supported framework](https://img.shields.io/badge/supported%20framework-netstandar2.0%20%7C%20netstandar%20%7C%20net6%20%7C%20net7-red)
+
 An unofficial .NET SDK for the lovely [omg.lol](https://omg.lol) [API service](https://api.omg.lol/)! If you haven't checked it out, please do so : ) $20 a year brings so much fun!
 
 > Disclaimer: \

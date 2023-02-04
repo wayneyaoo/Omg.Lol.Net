@@ -1,7 +1,6 @@
 # Omg.Lol.Net
 
-[![codecov](https://codecov.io/github/wayneyaoo/Omg.Lol.Net/branch/main/graph/badge.svg?token=LI7MKJFXES)](https://codecov.io/gith[![codecov](https://codecov.io/github/wayneyaoo/Omg.Lol.Net/branch/main/graph/badge.svg?token=LI7MKJFXES)](https://codecov.io/github/wayneyaoo/Omg.Lol.Net)ub/wayneyaoo/Omg.Lol.Net)
-
+[![codecov](https://codecov.io/github/wayneyaoo/Omg.Lol.Net/branch/main/graph/badge.svg?token=LI7MKJFXES)](https://codecov.io/github/wayneyaoo/Omg.Lol.Net)
 
 An unofficial .NET SDK for the lovely [omg.lol](https://omg.lol) [API service](https://api.omg.lol/)! If you haven't checked it out, please do so : ) $20 a year brings so much fun!
 

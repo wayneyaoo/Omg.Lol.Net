@@ -152,8 +152,8 @@ public class AddressClientTests
         Assert.That(response.Response.Message, Is.Not.Empty);
         Assert.That(response.Response.Registration.Message, Is.Not.Empty);
         Assert.That(response.Response.Registration.RelativeTime, Is.Not.Empty);
-        Assert.That(response.Response.Registration.Rfc2822_Time, Is.Not.Empty);
-        Assert.That(response.Response.Registration.Iso8601_Time, Is.LessThan(DateTimeOffset.UtcNow));
+        Assert.That(response.Response.Registration.Rfc2822Time, Is.Not.Empty);
+        Assert.That(response.Response.Registration.Iso8601Time, Is.LessThan(DateTimeOffset.UtcNow));
         Assert.That(
             response.Response.Registration.UnixEpochTime,
             Is.LessThan(DateTimeOffset.UtcNow.ToUnixTimeSeconds()));
@@ -178,8 +178,8 @@ public class AddressClientTests
         Assert.That(response.Response.Message, Is.Not.Empty);
         Assert.That(response.Response.Registration.Message, Is.Not.Empty);
         Assert.That(response.Response.Registration.RelativeTime, Is.Not.Empty);
-        Assert.That(response.Response.Registration.Rfc2822_Time, Is.Not.Empty);
-        Assert.That(response.Response.Registration.Iso8601_Time, Is.LessThan(DateTimeOffset.UtcNow));
+        Assert.That(response.Response.Registration.Rfc2822Time, Is.Not.Empty);
+        Assert.That(response.Response.Registration.Iso8601Time, Is.LessThan(DateTimeOffset.UtcNow));
         Assert.That(
             response.Response.Registration.UnixEpochTime,
             Is.LessThan(DateTimeOffset.UtcNow.ToUnixTimeSeconds()));

@@ -3,6 +3,7 @@
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 
 public class DefaultHttpClient : IHttpClient
@@ -17,35 +18,74 @@ public class DefaultHttpClient : IHttpClient
         return ret;
     });
 
-    public async Task<HttpResponseMessage> RequestAsync(HttpRequestMessage requestMessage)
-        => await HttpClient.Value.SendAsync(requestMessage).ConfigureAwait(false);
+    public async Task<HttpResponseMessage> RequestAsync(
+        HttpRequestMessage requestMessage,
+        CancellationToken cancellationToken = default)
+        => await HttpClient.Value.SendAsync(requestMessage, cancellationToken).ConfigureAwait(false);
 
-    public async Task<HttpResponseMessage> GetAsync(string url)
-        => await this.SendInternalAsync(url, HttpMethod.Get).ConfigureAwait(false);
-
-    public async Task<HttpResponseMessage> GetAsync(string url, string bearerToken)
-        => await this.SendInternalAsync(url, HttpMethod.Get, bearerToken).ConfigureAwait(false);
-
-    public async Task<HttpResponseMessage> PostAsync(string url, string content, string bearerToken)
-        => await this.SendInternalAsync(url, HttpMethod.Post, bearerToken, new StringContent(content))
+    public async Task<HttpResponseMessage> GetAsync(string url, CancellationToken cancellationToken = default)
+        => await this.SendInternalAsync(url, HttpMethod.Get, cancellationToken: cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<HttpResponseMessage> PatchAsync(string url, string content, string bearerToken)
-        => await this.SendInternalAsync(url, new HttpMethod("PATCH"), bearerToken, new StringContent(content))
+    public async Task<HttpResponseMessage> GetAsync(
+        string url,
+        string bearerToken,
+        CancellationToken cancellationToken = default)
+        => await this.SendInternalAsync(url, HttpMethod.Get, bearerToken, cancellationToken: cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<HttpResponseMessage> PutAsync(string url, string content, string bearerToken)
-        => await this.SendInternalAsync(url, HttpMethod.Put, bearerToken, new StringContent(content))
+    public async Task<HttpResponseMessage> PostAsync(
+        string url,
+        string content,
+        string bearerToken,
+        CancellationToken cancellationToken = default)
+        => await this.SendInternalAsync(
+                url,
+                HttpMethod.Post,
+                bearerToken,
+                new StringContent(content),
+                cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<HttpResponseMessage> DeleteAsync(string url, string bearerToken)
-        => await this.SendInternalAsync(url, HttpMethod.Delete, bearerToken).ConfigureAwait(false);
+    public async Task<HttpResponseMessage> PatchAsync(
+        string url,
+        string content,
+        string bearerToken,
+        CancellationToken cancellationToken = default)
+        => await this.SendInternalAsync(
+                url,
+                new HttpMethod("PATCH"),
+                bearerToken,
+                new StringContent(content),
+                cancellationToken)
+            .ConfigureAwait(false);
+
+    public async Task<HttpResponseMessage> PutAsync(
+        string url,
+        string content,
+        string bearerToken,
+        CancellationToken cancellationToken = default)
+        => await this.SendInternalAsync(
+                url,
+                HttpMethod.Put,
+                bearerToken,
+                new StringContent(content),
+                cancellationToken: cancellationToken)
+            .ConfigureAwait(false);
+
+    public async Task<HttpResponseMessage> DeleteAsync(
+        string url,
+        string bearerToken,
+        CancellationToken cancellationToken = default)
+        => await this.SendInternalAsync(url, HttpMethod.Delete, bearerToken, cancellationToken: cancellationToken)
+            .ConfigureAwait(false);
 
     private async Task<HttpResponseMessage> SendInternalAsync(
         string url,
         HttpMethod method,
         string? bearer = null,
-        HttpContent? content = null)
+        HttpContent? content = null,
+        CancellationToken cancellationToken = default)
     {
         var message = new HttpRequestMessage()
         {
@@ -60,6 +100,6 @@ public class DefaultHttpClient : IHttpClient
 
         message.Content = content;
 
-        return await this.RequestAsync(message).ConfigureAwait(false);
+        return await this.RequestAsync(message, cancellationToken).ConfigureAwait(false);
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace Omg.Lol.Net.Clients.Implementation;
 
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Omg.Lol.Net.Clients.Abstract;
@@ -31,28 +32,43 @@ public sealed class PurlsClient : IPurlsClient
         this.apiServerCommunicationHandler = apiServerCommunicationHandler;
     }
 
-    public async Task<CommonResponse<SinglePurl>> RetrievePurlAsync(string address, string purlName)
+    public async Task<CommonResponse<SinglePurl>> RetrievePurlAsync(
+        string address,
+        string purlName,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<SinglePurl>>(
                 this.Url + string.Format(RetrieveSpecificPurlEndpoint, address, purlName),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<MessageItem>> DeletePurlAsync(string address, string purlName)
+    public async Task<CommonResponse<MessageItem>> DeletePurlAsync(
+        string address,
+        string purlName,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.DeleteAsync<CommonResponse<MessageItem>>(
                 this.Url + string.Format(DeleteSpecificPurlEndpoint, address, purlName),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<MultiplePurls>> RetrievePurlsAsync(string address)
+    public async Task<CommonResponse<MultiplePurls>> RetrievePurlsAsync(
+        string address,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<MultiplePurls>>(
                 this.Url + string.Format(RetrieveAllPurlEndpoint, address),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<MessageItem>> CreatePurlAsync(string address, PurlPost purl)
+    public async Task<CommonResponse<MessageItem>> CreatePurlAsync(
+        string address,
+        PurlPost purl,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.PutAsync<CommonResponse<MessageItem>>(
                 this.Url + string.Format(CreateNewPurlEndpoint, address),
                 JsonConvert.SerializeObject(purl),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 }

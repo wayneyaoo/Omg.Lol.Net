@@ -1,5 +1,6 @@
 ﻿namespace Omg.Lol.Net.Infrastructure;
 
+using System.Threading;
 using System.Threading.Tasks;
 
 /// <summary>
@@ -10,5 +11,5 @@ using System.Threading.Tasks;
 /// </remarks>
 public interface IApiKeyProvider
 {
-    public Task<string> GetApiKeyAsync();
+    public Task<string> GetApiKeyAsync(CancellationToken cancellationToken = default);
 }

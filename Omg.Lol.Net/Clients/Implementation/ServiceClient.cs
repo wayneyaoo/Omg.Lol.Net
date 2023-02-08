@@ -1,5 +1,6 @@
 ﻿namespace Omg.Lol.Net.Clients.Implementation;
 
+using System.Threading;
 using System.Threading.Tasks;
 using Omg.Lol.Net.Clients.Abstract;
 using Omg.Lol.Net.Infrastructure;
@@ -21,8 +22,8 @@ public sealed class ServiceClient : IServiceClient
         this.apiServerCommunicationHandler = apiServerCommunicationHandler;
     }
 
-    public async Task<CommonResponse<ServiceInfo>> GetServiceStatistics()
+    public async Task<CommonResponse<ServiceInfo>> GetServiceStatistics(CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler
-            .GetAsync<CommonResponse<ServiceInfo>>(this.Url + RetrieveServiceInformation)
+            .GetAsync<CommonResponse<ServiceInfo>>(this.Url + RetrieveServiceInformation, cancellationToken)
             .ConfigureAwait(false);
 }

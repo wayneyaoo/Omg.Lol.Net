@@ -1,5 +1,6 @@
 ﻿namespace Omg.Lol.Net.Clients.Implementation;
 
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Omg.Lol.Net.Clients.Abstract;
@@ -29,30 +30,45 @@ public sealed class DnsClient : IDnsClient
         this.apiServerCommunicationHandler = apiServerCommunicationHandler;
     }
 
-    public async Task<CommonResponse<MultipleDnsRecords>> RetrieveDnsRecordsAsync(string address)
+    public async Task<CommonResponse<MultipleDnsRecords>> RetrieveDnsRecordsAsync(
+        string address,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<MultipleDnsRecords>>(
                 this.Url + string.Format(RetrieveDnsRecordsEndpoint, address),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<DnsModified>> CreateDnsRecordAsync(string address, DnsRecordPost record)
+    public async Task<CommonResponse<DnsModified>> CreateDnsRecordAsync(
+        string address,
+        DnsRecordPost record,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.PostAsync<CommonResponse<DnsModified>>(
                 this.Url + string.Format(CreateaDnsRecordEndpoint, address),
                 JsonConvert.SerializeObject(record),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 
     // TODO: Come back when this https://github.com/neatnik/omg.lol/issues/532 is resolved.
-    public async Task<CommonResponse<DnsModified>> UpdateDnsRecordAsync(string address, DnsRecordUpdate record)
+    public async Task<CommonResponse<DnsModified>> UpdateDnsRecordAsync(
+        string address,
+        DnsRecordUpdate record,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.PutAsync<CommonResponse<DnsModified>>(
                 this.Url + string.Format(UpdateExistingDnsRecordEnpoint, address),
                 JsonConvert.SerializeObject(record),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<MessageItem>> DeleteDnsRecordAsync(string address, string recordId)
+    public async Task<CommonResponse<MessageItem>> DeleteDnsRecordAsync(
+        string address,
+        string recordId,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.DeleteAsync<CommonResponse<MessageItem>>(
                 this.Url + string.Format(DeleteDnsRecordEnpoint, address, recordId),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 }

@@ -11,7 +11,7 @@ internal class OmgLolClient : IOmgLolClient
 
     public string Url { get; set; } = string.Empty;
 
-    public IAccountClient AccountClient => null;
+    public IAccountClient AccountClient => this.accountClient.Value;
 
     public IAddressClient AddressClient => this.addressClient.Value;
 
@@ -36,6 +36,8 @@ internal class OmgLolClient : IOmgLolClient
     private readonly Lazy<PastebinClient> pastebinClient;
 
     private readonly Lazy<StatuslogClient> statuslogClient;
+
+    private readonly Lazy<AccountClient> accountClient;
 
     public OmgLolClient(IApiServerCommunicationHandler apiServerCommunicationHandler)
     {
@@ -70,6 +72,12 @@ internal class OmgLolClient : IOmgLolClient
         });
 
         this.purlsClient = new Lazy<PurlsClient>(() => new PurlsClient(apiServerCommunicationHandler)
+        {
+            Token = this.Token,
+            Url = this.Url,
+        });
+
+        this.accountClient = new Lazy<AccountClient>(() => new AccountClient(apiServerCommunicationHandler)
         {
             Token = this.Token,
             Url = this.Url,

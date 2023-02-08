@@ -1,6 +1,7 @@
 ﻿namespace Omg.Lol.Net.Clients.Implementation;
 
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Omg.Lol.Net.Clients.Abstract;
@@ -38,56 +39,77 @@ public sealed class AccountClient : IAccountClient
         this.apiServerCommunicationHandler = apiServerCommunicationHandler;
     }
 
-    public async Task<CommonResponse<AccountInformation>> RetrieveAccountInformationAsync(string email)
+    public async Task<CommonResponse<AccountInformation>> RetrieveAccountInformationAsync(
+        string email,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AccountInformation>>(
-                this.Url + string.Format(RetrieveAccountInformationEndpoint, email), this.Token)
+                this.Url + string.Format(RetrieveAccountInformationEndpoint, email), this.Token, cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<AccountAddress[]>> RetrieveAccountAddressesAsync(string email)
+    public async Task<CommonResponse<AccountAddress[]>> RetrieveAccountAddressesAsync(
+        string email,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AccountAddress[]>>(
-                this.Url + string.Format(RetrieveAccountAddressesEndpoint, email), this.Token)
+                this.Url + string.Format(RetrieveAccountAddressesEndpoint, email), this.Token, cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<AccountName>> RetrieveAccountNameAsync(string email)
+    public async Task<CommonResponse<AccountName>> RetrieveAccountNameAsync(
+        string email,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AccountName>>(
-                this.Url + string.Format(RetrieveAccountNameEndpoint, email), this.Token)
+                this.Url + string.Format(RetrieveAccountNameEndpoint, email), this.Token, cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<AccountSettings>> RetrieveAccountSettingsAsync(string email)
+    public async Task<CommonResponse<AccountSettings>> RetrieveAccountSettingsAsync(
+        string email,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AccountSettings>>(
-                this.Url + string.Format(RetrieveAccountSettingsEndpoint, email), this.Token)
+                this.Url + string.Format(RetrieveAccountSettingsEndpoint, email), this.Token, cancellationToken)
             .ConfigureAwait(false);
 
     // Skip test due to test concurrency issue
     [ExcludeFromCodeCoverage]
-    public async Task<CommonResponse<MessageItem>> SetAccountSettingsAsync(string email, AccountSettings settings)
+    public async Task<CommonResponse<MessageItem>> SetAccountSettingsAsync(
+        string email,
+        AccountSettings settings,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.PutAsync<CommonResponse<MessageItem>>(
                 this.Url + string.Format(SetAccountsettingsEndpoint, email),
                 JsonConvert.SerializeObject(settings),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 
     // Skip test due to test concurrency issue
     [ExcludeFromCodeCoverage]
-    public async Task<CommonResponse<AccountName>> SetAccountNameAsync(string email, string newName)
+    public async Task<CommonResponse<AccountName>> SetAccountNameAsync(
+        string email,
+        string newName,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.PutAsync<CommonResponse<AccountName>>(
                 this.Url + string.Format(SetAccountNameEndpoint, email),
                 JsonConvert.SerializeObject(new
                 {
                     name = newName,
                 }),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<AccountSession[]>> RetrieveAccountSessionsAsync(string email)
+    public async Task<CommonResponse<AccountSession[]>> RetrieveAccountSessionsAsync(
+        string email,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AccountSession[]>>(
-                this.Url + string.Format(RetrieveAccountSessionsEndpoint, email), this.Token)
+                this.Url + string.Format(RetrieveAccountSessionsEndpoint, email), this.Token, cancellationToken)
             .ConfigureAwait(false);
 
     //Skip test because we don't automatic way to create sessions
     [ExcludeFromCodeCoverage]
-    public async Task<CommonResponse<MessageItem>> DeleteAccountSessionAsync(string email, string sessionId)
+    public async Task<CommonResponse<MessageItem>> DeleteAccountSessionAsync(
+        string email,
+        string sessionId,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.DeleteAsync<CommonResponse<MessageItem>>(
-                this.Url + string.Format(DeleteAccountSessionsEndpoint, email), this.Token)
+                this.Url + string.Format(DeleteAccountSessionsEndpoint, email), this.Token, cancellationToken)
             .ConfigureAwait(false);
 }

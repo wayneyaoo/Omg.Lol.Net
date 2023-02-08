@@ -2,6 +2,7 @@
 
 using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Omg.Lol.Net.Infrastructure.Exceptions;
@@ -17,50 +18,67 @@ public sealed class ApiServerCommunicationHandler : IApiServerCommunicationHandl
         this.httpClient = new Lazy<IHttpClient>(httpClientFactory.GetHttpClient);
     }
 
-    public async Task<T> GetAsync<T>(string url, string bearerToken)
-        => await this.SendInternalAsync<T>(this.httpClient.Value.GetAsync, url, bearerToken)
+    public async Task<T> GetAsync<T>(string url, string bearerToken, CancellationToken cancellationToken = default)
+        => await this.SendInternalAsync<T>(this.httpClient.Value.GetAsync, url, bearerToken, cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<T> GetAsync<T>(string url)
-        => await this.SendInternalAsync<T>(this.httpClient.Value.GetAsync, url)
+    public async Task<T> GetAsync<T>(string url, CancellationToken cancellationToken = default)
+        => await this.SendInternalAsync<T>(this.httpClient.Value.GetAsync, url, cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<T> PostAsync<T>(string url, string content, string bearerToken)
-        => await this.SendInternalAsync<T>(this.httpClient.Value.PostAsync, url, content, bearerToken)
+    public async Task<T> PostAsync<T>(
+        string url,
+        string content,
+        string bearerToken,
+        CancellationToken cancellationToken = default)
+        => await this
+            .SendInternalAsync<T>(this.httpClient.Value.PostAsync, url, content, bearerToken, cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<T> PatchAsync<T>(string url, string content, string bearerToken)
-        => await this.SendInternalAsync<T>(this.httpClient.Value.PatchAsync, url, content, bearerToken)
+    public async Task<T> PatchAsync<T>(
+        string url,
+        string content,
+        string bearerToken,
+        CancellationToken cancellationToken = default)
+        => await this
+            .SendInternalAsync<T>(this.httpClient.Value.PatchAsync, url, content, bearerToken, cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<T> PutAsync<T>(string url, string content, string bearerToken)
-        => await this.SendInternalAsync<T>(this.httpClient.Value.PutAsync, url, content, bearerToken)
+    public async Task<T> PutAsync<T>(
+        string url,
+        string content,
+        string bearerToken,
+        CancellationToken cancellationToken = default)
+        => await this.SendInternalAsync<T>(this.httpClient.Value.PutAsync, url, content, bearerToken, cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<T> DeleteAsync<T>(string url, string bearerToken)
-        => await this.SendInternalAsync<T>(this.httpClient.Value.DeleteAsync, url, bearerToken)
+    public async Task<T> DeleteAsync<T>(string url, string bearerToken, CancellationToken cancellationToken = default)
+        => await this.SendInternalAsync<T>(this.httpClient.Value.DeleteAsync, url, bearerToken, cancellationToken)
             .ConfigureAwait(false);
 
     private async Task<T> SendInternalAsync<T>(
-        Func<string, Task<HttpResponseMessage>> method,
-        string url)
-        => await this.ResponseTransformation<T>(await method(url)
+        Func<string, CancellationToken, Task<HttpResponseMessage>> method,
+        string url,
+        CancellationToken cancellationToken)
+        => await this.ResponseTransformation<T>(await method(url, cancellationToken)
             .ConfigureAwait(false)).ConfigureAwait(false);
 
     private async Task<T> SendInternalAsync<T>(
-        Func<string, string, Task<HttpResponseMessage>> method,
+        Func<string, string, CancellationToken, Task<HttpResponseMessage>> method,
         string url,
-        string bearer)
-        => await this.ResponseTransformation<T>(await method(url, bearer)
+        string bearer,
+        CancellationToken cancellationToken)
+        => await this.ResponseTransformation<T>(await method(url, bearer, cancellationToken)
                 .ConfigureAwait(false))
             .ConfigureAwait(false);
 
     private async Task<T> SendInternalAsync<T>(
-        Func<string, string, string, Task<HttpResponseMessage>> method,
+        Func<string, string, string, CancellationToken, Task<HttpResponseMessage>> method,
         string url,
         string content,
-        string bearer)
-        => await this.ResponseTransformation<T>(await method(url, content, bearer)
+        string bearer,
+        CancellationToken cancellationToken)
+        => await this.ResponseTransformation<T>(await method(url, content, bearer, cancellationToken)
                 .ConfigureAwait(false))
             .ConfigureAwait(false);
 
@@ -69,9 +87,7 @@ public sealed class ApiServerCommunicationHandler : IApiServerCommunicationHandl
         var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         if (!response.IsSuccessStatusCode)
         {
-            throw new ApiResponseException(
-                JsonConvert.DeserializeObject<CommonResponse<MessageItem>>(
-                    await response.Content.ReadAsStringAsync().ConfigureAwait(false)));
+            throw new ApiResponseException(JsonConvert.DeserializeObject<CommonResponse<MessageItem>>(content));
         }
 
         return JsonConvert.DeserializeObject<T>(content) !;

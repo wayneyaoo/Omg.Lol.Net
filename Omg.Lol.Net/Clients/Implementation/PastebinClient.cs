@@ -1,5 +1,6 @@
 ﻿namespace Omg.Lol.Net.Clients.Implementation;
 
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Omg.Lol.Net.Clients.Abstract;
@@ -29,36 +30,54 @@ public sealed class PastebinClient : IPastebinClient
         this.apiServerCommunicationHandler = apiServerCommunicationHandler;
     }
 
-    public async Task<CommonResponse<SinglePaste>> RetrieveASpecificPasteAsync(string address, string pasteTitle)
+    public async Task<CommonResponse<SinglePaste>> RetrieveASpecificPasteAsync(
+        string address,
+        string pasteTitle,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler
             .GetAsync<CommonResponse<SinglePaste>>(
-                this.Url + string.Format(RetrieveASpecificPasteEndpoint, address, pasteTitle))
+                this.Url + string.Format(RetrieveASpecificPasteEndpoint, address, pasteTitle), cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<MultiplePastes>> RetrievePublicAndPrivatePastebinAsync(string address)
+    public async Task<CommonResponse<MultiplePastes>> RetrievePublicAndPrivatePastebinAsync(
+        string address,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler
             .GetAsync<CommonResponse<MultiplePastes>>(
                 this.Url + string.Format(RetrievePastebinEndpoint, address),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<MultiplePastes>> RetrievePublicPastebinAsync(string address)
+    public async Task<CommonResponse<MultiplePastes>> RetrievePublicPastebinAsync(
+        string address,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler
-            .GetAsync<CommonResponse<MultiplePastes>>(this.Url + string.Format(RetrievePastebinEndpoint, address))
+            .GetAsync<CommonResponse<MultiplePastes>>(
+                this.Url + string.Format(RetrievePastebinEndpoint, address),
+                cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<PasteModified>> CreateOrUpdatePasteAsync(string address, PastePost paste)
+    public async Task<CommonResponse<PasteModified>> CreateOrUpdatePasteAsync(
+        string address,
+        PastePost paste,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler
             .PostAsync<CommonResponse<PasteModified>>(
                 this.Url + string.Format(CreateOrUpdatePasteEndpoint, address),
                 JsonConvert.SerializeObject(paste),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<MessageItem>> DeletePasteAsync(string address, string pasteTitle)
+    public async Task<CommonResponse<MessageItem>> DeletePasteAsync(
+        string address,
+        string pasteTitle,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler
             .DeleteAsync<CommonResponse<MessageItem>>(
                 this.Url + string.Format(DeletePasteEndpoint, address, pasteTitle),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 }

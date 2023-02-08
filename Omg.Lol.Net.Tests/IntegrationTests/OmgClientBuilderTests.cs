@@ -1,6 +1,7 @@
 ﻿namespace Omg.Lol.Net.Tests.IntegrationTests;
 
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using NSubstitute;
 using NUnit.Framework;
@@ -162,5 +163,5 @@ internal class TestApiKeyProvider : IApiKeyProvider
     public readonly string Token = Guid.NewGuid().ToString();
 #pragma warning restore SA1401
 
-    public Task<string> GetApiKeyAsync() => Task.FromResult(this.Token);
+    public Task<string> GetApiKeyAsync(CancellationToken cancellationToken = default) => Task.FromResult(this.Token);
 }

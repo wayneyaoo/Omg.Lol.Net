@@ -1,5 +1,6 @@
 ﻿namespace Omg.Lol.Net.Clients.Implementation;
 
+using System.Threading;
 using System.Threading.Tasks;
 using Omg.Lol.Net.Clients.Abstract;
 using Omg.Lol.Net.Infrastructure;
@@ -26,23 +27,31 @@ public sealed class AddressClient : IAddressClient
         this.apiServerCommunicationHandler = apiServerCommunicationHandler;
     }
 
-    public async Task<CommonResponse<AddressAvailability>> RetrieveAddressAvailabilityAsync(string address)
+    public async Task<CommonResponse<AddressAvailability>> RetrieveAddressAvailabilityAsync(
+        string address,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AddressAvailability>>(
-            this.Url + string.Format(RetreiveAddressAvailabilityEndpoint, address))
+                this.Url + string.Format(RetreiveAddressAvailabilityEndpoint, address), cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<AddressExpirationPublicView>> RetrieveAddressExpirationAsync(string address)
+    public async Task<CommonResponse<AddressExpirationPublicView>> RetrieveAddressExpirationAsync(
+        string address,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<AddressExpirationPublicView>>(
-            this.Url + string.Format(RetrieveAddressExpirationEndpoint, address))
+                this.Url + string.Format(RetrieveAddressExpirationEndpoint, address), cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<PublicAddressInformation>> RetrievePublicAddressInformationAsync(string address)
+    public async Task<CommonResponse<PublicAddressInformation>> RetrievePublicAddressInformationAsync(
+        string address,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<PublicAddressInformation>>(
-            this.Url + string.Format(RetrieveAddressInformationEndpoint, address))
+                this.Url + string.Format(RetrieveAddressInformationEndpoint, address), cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<PrivateAddressInformation>> RetrievePrivateAddressInformationAsync(string address)
+    public async Task<CommonResponse<PrivateAddressInformation>> RetrievePrivateAddressInformationAsync(
+        string address,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<PrivateAddressInformation>>(
-            this.Url + string.Format(RetrieveAddressInformationEndpoint, address), this.Token)
+                this.Url + string.Format(RetrieveAddressInformationEndpoint, address), this.Token, cancellationToken)
             .ConfigureAwait(false);
 }

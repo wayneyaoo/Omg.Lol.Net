@@ -1,5 +1,6 @@
 ﻿namespace Omg.Lol.Net.Clients.Implementation;
 
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Omg.Lol.Net.Clients.Abstract;
@@ -41,60 +42,88 @@ public sealed class StatuslogClient : IStatuslogClient
         this.apiServerCommunicationHandler = apiServerCommunicationHandler;
     }
 
-    public async Task<CommonResponse<SingleStatus>> RetrieveInvidualStatusAsync(string address, string statusId)
+    public async Task<CommonResponse<SingleStatus>> RetrieveInvidualStatusAsync(
+        string address,
+        string statusId,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<SingleStatus>>(
-                this.Url + string.Format(RetrieveIndividualStatusEndpoint, address, statusId))
+                this.Url + string.Format(RetrieveIndividualStatusEndpoint, address, statusId), cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<MessageItem>> DeleteStatusAsync(string address, string statusId)
+    public async Task<CommonResponse<MessageItem>> DeleteStatusAsync(
+        string address,
+        string statusId,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.DeleteAsync<CommonResponse<MessageItem>>(
                 this.Url + string.Format(DeleteIndividualStatusEndpoint, address, statusId),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<SingleStatus>> RetrieveLatestStatusAsync(string address)
+    public async Task<CommonResponse<SingleStatus>> RetrieveLatestStatusAsync(
+        string address,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<SingleStatus>>(
-                this.Url + string.Format(RetrieveLatestStatusEndpoint, address))
+                this.Url + string.Format(RetrieveLatestStatusEndpoint, address), cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<MultipleStatuses>> RetrieveEntireStatusesAsync(string address)
+    public async Task<CommonResponse<MultipleStatuses>> RetrieveEntireStatusesAsync(
+        string address,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<MultipleStatuses>>(
-                this.Url + string.Format(RetrieveEntireStatusesEndpoint, address))
+                this.Url + string.Format(RetrieveEntireStatusesEndpoint, address), cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<MultipleStatuses>> RetrieveEntireStatusesAsync()
+    public async Task<CommonResponse<MultipleStatuses>> RetrieveEntireStatusesAsync(
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<MultipleStatuses>>(
-                this.Url + string.Format(RetrieveEveryoneStatusEndpoint))
+                this.Url + string.Format(RetrieveEveryoneStatusEndpoint), cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<MultipleStatuses>> RetrieveEntireLatestStatusAsync()
+    public async Task<CommonResponse<MultipleStatuses>> RetrieveEntireLatestStatusAsync(
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<MultipleStatuses>>(
-                this.Url + string.Format(RetrieveEveryoneLatestStatusEndpoint))
+                this.Url + string.Format(RetrieveEveryoneLatestStatusEndpoint), cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<StatusModified>> CreateStatusAsync(string address, StatusPost status)
+    public async Task<CommonResponse<StatusModified>> CreateStatusAsync(
+        string address,
+        StatusPost status,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.PostAsync<CommonResponse<StatusModified>>(
                 this.Url + string.Format(CreateStatusEndpoint, address),
                 JsonConvert.SerializeObject(status),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<StatusModified>> UpdateStatusAsync(string address, StatusPatch status)
+    public async Task<CommonResponse<StatusModified>> UpdateStatusAsync(
+        string address,
+        StatusPatch status,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.PostAsync<CommonResponse<StatusModified>>(
                 this.Url + string.Format(UpdateStatusEndpoint, address),
                 JsonConvert.SerializeObject(status),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<StatusBio>> RetrieveStatusBioAsync(string address)
+    public async Task<CommonResponse<StatusBio>> RetrieveStatusBioAsync(
+        string address,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.GetAsync<CommonResponse<StatusBio>>(
-                this.Url + string.Format(RetrieveStatusBioEndpoint, address))
+                this.Url + string.Format(RetrieveStatusBioEndpoint, address),
+                cancellationToken)
             .ConfigureAwait(false);
 
-    public async Task<CommonResponse<MessageItem>> UpdateStatusBioAsync(string address, ContentItem content)
+    public async Task<CommonResponse<MessageItem>> UpdateStatusBioAsync(
+        string address,
+        ContentItem content,
+        CancellationToken cancellationToken = default)
         => await this.apiServerCommunicationHandler.PostAsync<CommonResponse<MessageItem>>(
                 this.Url + string.Format(UpdateStatusBioEndpoint, address),
                 JsonConvert.SerializeObject(content),
-                this.Token)
+                this.Token,
+                cancellationToken)
             .ConfigureAwait(false);
 }

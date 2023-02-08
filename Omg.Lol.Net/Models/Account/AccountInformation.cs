@@ -14,7 +14,7 @@ public class AccountInformation
     public string Name { get; set; } = string.Empty;
 
     [JsonProperty("settings")]
-    public AccountSettings Settingses { get; set; } = new ();
+    public Settings Settings { get; set; } = new ();
 
     [JsonProperty("created")]
     public AccountCreationTime Created { get; set; } = new ();

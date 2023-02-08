@@ -36,6 +36,7 @@ public class OmgClientBuilderTests
         Assert.That(client.PastebinClient, Is.Not.Null);
         Assert.That(client.StatuslogClient, Is.Not.Null);
         Assert.That(client.PurlsClient, Is.Not.Null);
+        Assert.That(client.AccountClient, Is.Not.Null);
     }
 
     [Test]

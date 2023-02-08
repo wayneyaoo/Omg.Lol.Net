@@ -15,5 +15,5 @@ public class AccountAddress
     public Registration Registration { get; set; } = new ();
 
     [JsonProperty("expiration")]
-    public AddressExpirationPrivateView Expiration { get; set; } = new ();
+    public AddressExpiration Expiration { get; set; } = new ();
 }

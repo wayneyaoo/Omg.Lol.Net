@@ -5,10 +5,10 @@ using Newtonsoft.Json;
 public class CommonResponse<T>
 {
     [JsonProperty("request")]
-    public Request Request { get; set; }
+    public Request Request { get; set; } = new ();
 
     [JsonProperty("response")]
-    public T Response { get; set; }
+    public T Response { get; set; } = default!;
 }
 
 public class Request

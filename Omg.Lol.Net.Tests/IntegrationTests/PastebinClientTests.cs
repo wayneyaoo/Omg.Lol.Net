@@ -13,9 +13,9 @@ using Omg.Lol.Net.Models.Paste;
 [TestFixture]
 public class PastebinClientTests
 {
-    private static string API_KEY;
+    private static string API_KEY = null!;
 
-    private IPastebinClient pastebinClient;
+    private IPastebinClient pastebinClient = null!;
 
     [OneTimeSetUp]
     public void ApiKeyRetrieve()

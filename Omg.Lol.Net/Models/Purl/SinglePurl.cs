@@ -8,5 +8,5 @@ public class SinglePurl
     public string Message { get; set; } = string.Empty;
 
     [JsonProperty("purl")]
-    public Purl Purl { get; set; }
+    public Purl Purl { get; set; } = new ();
 }

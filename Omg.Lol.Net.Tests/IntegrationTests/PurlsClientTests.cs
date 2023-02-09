@@ -13,9 +13,9 @@ using Omg.Lol.Net.Models.Purl;
 [TestFixture]
 public class PurlsClientTests
 {
-    private static string API_KEY;
+    private static string API_KEY = null!;
 
-    private IPurlsClient purlsClient;
+    private IPurlsClient purlsClient = null!;
 
     [OneTimeSetUp]
     public void ApiKeyRetrieve()

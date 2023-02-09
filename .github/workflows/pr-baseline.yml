@@ -1,4 +1,4 @@
-name: Integration Test
+name: PR Baseline
 
 on: 
  workflow_dispatch:
@@ -10,7 +10,7 @@ jobs:
   Baseline:
     strategy:
       matrix:
-        os: [ubuntu-22.04, ubuntu-20.04, windows-2019, windows-2022, macos-12, macos-11]
+        os: [ubuntu-latest, windows-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Install .NET SDK 7

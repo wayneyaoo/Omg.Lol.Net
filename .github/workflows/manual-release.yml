@@ -39,13 +39,17 @@ jobs:
         run: 'dotnet pack 
               -c Release 
               -o . 
+              -p:IncludeSymbols=true 
+              -p:SymbolPackageFormat=snupkg
               ./Omg.Lol.Net/Omg.Lol.Net.csproj'
 
       - name: Tag & Drop to Github Release
         uses: softprops/action-gh-release@v1
         with:
           prerelease: ${{ github.event.inputs.pre-release }}
-          files: "*.nupkg"
+          files: |
+            "*.nupkg"
+            "*.snupkg"
           tag_name: v${{ steps.version-bump.outputs.newVersion }}
           fail_on_unmatched_files: true
           generate_release_notes: true

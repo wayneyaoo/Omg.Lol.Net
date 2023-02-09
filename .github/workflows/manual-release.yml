@@ -48,8 +48,8 @@ jobs:
         with:
           prerelease: ${{ github.event.inputs.pre-release }}
           files: |
-            "*.nupkg"
-            "*.snupkg"
+            *.nupkg
+            *.snupkg
           tag_name: v${{ steps.version-bump.outputs.newVersion }}
           fail_on_unmatched_files: true
           generate_release_notes: true

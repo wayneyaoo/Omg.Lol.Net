@@ -16,9 +16,9 @@ using Omg.Lol.Net.Models.Status;
 [TestFixture]
 public class StatuslogClientTests
 {
-    private static string API_KEY;
+    private static string API_KEY = null!;
 
-    private IStatuslogClient statuslogClient;
+    private IStatuslogClient statuslogClient = null!;
 
     [OneTimeSetUp]
     public void ApiKeyRetrieve()

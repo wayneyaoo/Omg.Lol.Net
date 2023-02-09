@@ -87,7 +87,13 @@ public sealed class ApiServerCommunicationHandler : IApiServerCommunicationHandl
         var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         if (!response.IsSuccessStatusCode)
         {
-            throw new ApiResponseException(JsonConvert.DeserializeObject<CommonResponse<MessageItem>>(content));
+            var serverResponse = JsonConvert.DeserializeObject<CommonResponse<MessageItem>>(content);
+            if (serverResponse is null)
+            {
+                throw new ApiResponseException(response.StatusCode);
+            }
+
+            throw new ApiResponseException(serverResponse);
         }
 
         return JsonConvert.DeserializeObject<T>(content) !;

@@ -11,7 +11,7 @@ using Omg.Lol.Net.Infrastructure;
 [TestFixture]
 public class OmgClientBuilderTests
 {
-    private static string API_KEY;
+    private static string API_KEY = null!;
 
     [OneTimeSetUp]
     public void ApiKeyRetrieve()

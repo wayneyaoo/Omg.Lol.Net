@@ -12,13 +12,13 @@ public class PublicAddressInformation
     public string Message { get; set; } = string.Empty;
 
     [JsonProperty("registration")]
-    public Registration Registration { get; set; }
+    public Registration Registration { get; set; } = new ();
 
     [JsonProperty("expiration")]
-    public AddressExpirationPublicView ExpirationPublicView { get; set; }
+    public AddressExpirationPublicView ExpirationPublicView { get; set; } = new ();
 
     [JsonProperty("verification")]
-    public Verification Verification { get; set; }
+    public Verification Verification { get; set; } = new ();
 
     [JsonProperty("keys")]
     public Dictionary<string, string[]> Keys { get; set; } = new ();

@@ -13,9 +13,9 @@ using Omg.Lol.Net.Models.Dns;
 [TestFixture]
 public class DnsClientTests
 {
-    private static string API_KEY;
+    private static string API_KEY = null!;
 
-    private IDnsClient dnsClient;
+    private IDnsClient dnsClient = null!;
 
     [OneTimeSetUp]
     public void ApiKeyRetrieve()

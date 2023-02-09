@@ -16,9 +16,9 @@ public class AccountClientTests
 {
     private const string Email = "omg@wayneyao.me";
 
-    private static string API_KEY;
+    private static string API_KEY = null!;
 
-    private IAccountClient accountClient;
+    private IAccountClient accountClient = null!;
 
     [OneTimeSetUp]
     public void ApiKeyRetrieve()
@@ -63,7 +63,7 @@ public class AccountClientTests
         Assert.That(response.Response.Created.Iso8601Time, Is.Not.EqualTo(DateTimeOffset.MinValue));
         Assert.That(response.Response.Created.RelativeTime, Is.Not.Empty);
         Assert.That(response.Response.Created.Rfc2822Time, Is.Not.Empty);
-        Assert.That(response.Response.Created.UnixEpochTime, Is.Not.EqualTo(long.MinValue));
+        Assert.That(response.Response.Created.UnixEpochTime, Is.Not.EqualTo(default));
         Assert.That(response.Response.Name, Is.Not.Empty);
         Assert.That(response.Response.Settings.Owner, Is.EqualTo(Email));
         Assert.That(
@@ -78,7 +78,7 @@ public class AccountClientTests
     }
 
     [Test]
-    public async Task Retrieve_AccountInformation_Cannot_Retrieve_Others_Info()
+    public void Retrieve_AccountInformation_Cannot_Retrieve_Others_Info()
     {
         var exception = Assert.ThrowsAsync<ApiResponseException>(async () =>
             await this.accountClient.RetrieveAccountInformationAsync("wy"));
@@ -100,7 +100,7 @@ public class AccountClientTests
         var address = response.Response[0];
         Assert.That(address.Address, Is.EqualTo("wy-test"));
         Assert.That(address.Expiration.Iso8601Time, Is.Not.EqualTo(DateTimeOffset.MinValue));
-        Assert.That(address.Expiration.UnixEpochTime, Is.Not.EqualTo(long.MinValue));
+        Assert.That(address.Expiration.UnixEpochTime, Is.Not.EqualTo(default));
         Assert.That(address.Expiration.Rfc2822Time, Is.Not.Empty);
         Assert.That(address.Expiration.RelativeTime, Is.Not.Empty);
         Assert.That(address.Expiration.Expired, Is.False);
@@ -109,7 +109,7 @@ public class AccountClientTests
         Assert.That(address.Registration.RelativeTime, Is.Not.Empty);
         Assert.That(address.Registration.Iso8601Time, Is.Not.EqualTo(DateTimeOffset.MinValue));
         Assert.That(address.Registration.Rfc2822Time, Is.Not.Empty);
-        Assert.That(address.Registration.UnixEpochTime, Is.Not.EqualTo(long.MinValue));
+        Assert.That(address.Registration.UnixEpochTime, Is.Not.EqualTo(default));
         Assert.That(address.Message, Is.Not.Empty);
     }
 

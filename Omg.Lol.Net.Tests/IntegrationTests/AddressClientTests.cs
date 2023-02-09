@@ -14,9 +14,9 @@ using Omg.Lol.Net.Models.Address;
 [TestFixture]
 public class AddressClientTests
 {
-    private static string API_KEY;
+    private static string API_KEY = null!;
 
-    private IAddressClient addressClient;
+    private IAddressClient addressClient = null!;
 
     [OneTimeSetUp]
     public void ApiKeyRetrieve()
@@ -109,7 +109,7 @@ public class AddressClientTests
     }
 
     [Test]
-    public async Task RetrieveAddressExpiration_Account_Not_Found()
+    public void RetrieveAddressExpiration_Account_Not_Found()
     {
         // Arrange
         var randomAddress = Guid.NewGuid().ToString();
@@ -196,7 +196,7 @@ public class AddressClientTests
     }
 
     [Test]
-    public async Task RetrieveAccountInformation_Private_Should_Not_Retrieve_AddressInformation_Of_Other_Accounts()
+    public void RetrieveAccountInformation_Private_Should_Not_Retrieve_AddressInformation_Of_Other_Accounts()
     {
         ApiResponseException exception = Assert.ThrowsAsync<ApiResponseException>(
             async () => await this.addressClient.RetrievePrivateAddressInformationAsync("adam"));

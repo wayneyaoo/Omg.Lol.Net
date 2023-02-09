@@ -9,7 +9,7 @@ public class AddressExpirationPrivateView
     public string Message { get; set; } = string.Empty;
 
     [JsonProperty("unix_epoch_time")]
-    public long UnixEpochTime { get; set; } = long.MinValue;
+    public long UnixEpochTime { get; set; }
 
     [JsonProperty("iso_8601_time")]
     public DateTimeOffset Iso8601Time { get; set; } = DateTimeOffset.MinValue;

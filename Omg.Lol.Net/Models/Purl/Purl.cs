@@ -12,9 +12,9 @@ public class Purl
 
     // TODO: revisit this https://github.com/neatnik/omg.lol/issues/531 when resolved
     [JsonProperty("counter")]
-    public string Counter { get; set; }
+    public string Counter { get; set; } = string.Empty;
 
     // TODO: revisit this https://github.com/neatnik/omg.lol/issues/531 when resolved
     [JsonProperty("listed")]
-    public string Listed { get; set; }
+    public string Listed { get; set; } = string.Empty;
 }

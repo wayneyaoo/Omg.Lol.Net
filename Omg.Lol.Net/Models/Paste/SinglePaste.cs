@@ -8,5 +8,5 @@ public class SinglePaste
     public string Message { get; set; } = string.Empty;
 
     [JsonProperty("paste")]
-    public PasteDetail PasteDetail { get; set; }
+    public PasteDetail PasteDetail { get; set; } = new ();
 }

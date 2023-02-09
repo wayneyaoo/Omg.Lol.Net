@@ -9,14 +9,14 @@ public class DnsModified
     public string Message { get; set; } = string.Empty;
 
     [JsonProperty("data_sent")]
-    public DnsRecordPost DataSent { get; set; }
+    public DnsRecordPost DataSent { get; set; } = new ();
 
     [JsonProperty("response_received")]
-    public DnsCreateResponse ResponseReceived { get; set; }
+    public DnsCreateResponse ResponseReceived { get; set; } = new ();
 
     public class DnsCreateResponse
     {
         [JsonProperty("data")]
-        public DnsRecordDetail Data { get; set; }
+        public DnsRecordDetail Data { get; set; } = new ();
     }
 }

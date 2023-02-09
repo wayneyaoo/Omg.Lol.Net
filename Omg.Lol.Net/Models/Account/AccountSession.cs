@@ -14,8 +14,8 @@ public class AccountSession
     public string CreatedIp { get; set; } = string.Empty;
 
     [JsonProperty("created_on")]
-    public long CreatedOn { get; set; } = long.MinValue;
+    public long CreatedOn { get; set; }
 
     [JsonProperty("Expires_on")]
-    public long ExpiresOn { get; set; } = long.MinValue;
+    public long ExpiresOn { get; set; }
 }

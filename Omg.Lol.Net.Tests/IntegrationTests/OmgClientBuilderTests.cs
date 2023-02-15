@@ -61,7 +61,7 @@ public class OmgClientBuilderTests
         // lazy initialization
         factory.DidNotReceive().GetHttpClient();
 
-        await client.ServiceClient.GetServiceStatistics();
+        await client.ServiceClient.GetServiceStatisticsAsync();
 
         factory.Received().GetHttpClient();
     }
@@ -95,7 +95,7 @@ public class OmgClientBuilderTests
 
         // Act
         IOmgLolClient client = await OmgLolClientBuilder.Create(() => Task.FromResult(token), factory);
-        await client.ServiceClient.GetServiceStatistics();
+        await client.ServiceClient.GetServiceStatisticsAsync();
 
         // Assert
         Assert.That(client.ServiceClient, Is.Not.Null);
@@ -120,7 +120,7 @@ public class OmgClientBuilderTests
 
         // Act
         IOmgLolClient client = await OmgLolClientBuilder.Create(provider, factory);
-        await client.ServiceClient.GetServiceStatistics();
+        await client.ServiceClient.GetServiceStatisticsAsync();
 
         // Assert
         Assert.That(client.ServiceClient, Is.Not.Null);

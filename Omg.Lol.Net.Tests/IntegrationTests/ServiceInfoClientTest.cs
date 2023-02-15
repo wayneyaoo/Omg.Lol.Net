@@ -15,7 +15,7 @@ public class ServiceInfoClientTest
         {
             Url = Constants.API_SERVER_ADDRESS,
         };
-        var response = await serviceClient.GetServiceStatistics();
+        var response = await serviceClient.GetServiceStatisticsAsync();
 
         Assert.That(response.Request.StatusCode, Is.EqualTo(200));
         Assert.That(response.Request.Success, Is.True);

@@ -8,5 +8,5 @@ using Omg.Lol.Net.Models.ServiceStatus;
 
 public interface IServiceClient : IApiInfoCarrier
 {
-    public Task<CommonResponse<ServiceInfo>> GetServiceStatistics(CancellationToken cancellationToken = default);
+    public Task<CommonResponse<ServiceInfo>> GetServiceStatisticsAsync(CancellationToken cancellationToken = default);
 }

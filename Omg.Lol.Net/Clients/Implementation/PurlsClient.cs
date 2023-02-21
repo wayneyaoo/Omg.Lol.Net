@@ -11,9 +11,9 @@ using Omg.Lol.Net.Models.Purl;
 
 public sealed class PurlsClient : IPurlsClient
 {
-    public string Token { get; set; } = string.Empty;
+    public string Token { get; internal set; } = string.Empty;
 
-    public string Url { get; set; } = string.Empty;
+    public string Url { get; internal set; } = string.Empty;
 
     // TODO: revisit when this https://github.com/neatnik/omg.lol/issues/538 is resolved.
     private const string RetrieveSpecificPurlEndpoint = "/address/{0}/purl/{1}";

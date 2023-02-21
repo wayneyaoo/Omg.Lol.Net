@@ -18,4 +18,6 @@ public interface IOmgLolClient : IApiInfoCarrier
     public IPastebinClient PastebinClient { get; }
 
     public IStatuslogClient StatuslogClient { get; }
+
+    public IDirectoryClient DirectoryClient { get; }
 }

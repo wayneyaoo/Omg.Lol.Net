@@ -38,6 +38,7 @@ public class OmgClientBuilderTests
         Assert.That(client.StatuslogClient, Is.Not.Null);
         Assert.That(client.PurlsClient, Is.Not.Null);
         Assert.That(client.AccountClient, Is.Not.Null);
+        Assert.That(client.DirectoryClient, Is.Not.Null);
     }
 
     [Test]
@@ -57,6 +58,8 @@ public class OmgClientBuilderTests
         Assert.That(client.PastebinClient, Is.Not.Null);
         Assert.That(client.StatuslogClient, Is.Not.Null);
         Assert.That(client.PurlsClient, Is.Not.Null);
+        Assert.That(client.AccountClient, Is.Not.Null);
+        Assert.That(client.DirectoryClient, Is.Not.Null);
 
         // lazy initialization
         factory.DidNotReceive().GetHttpClient();
@@ -81,6 +84,8 @@ public class OmgClientBuilderTests
         Assert.That(client.PastebinClient, Is.Not.Null);
         Assert.That(client.StatuslogClient, Is.Not.Null);
         Assert.That(client.PurlsClient, Is.Not.Null);
+        Assert.That(client.AccountClient, Is.Not.Null);
+        Assert.That(client.DirectoryClient, Is.Not.Null);
 
         Assert.That(client.Token, Is.EqualTo(token));
         Assert.That(client.Url, Is.Not.Null);
@@ -104,6 +109,8 @@ public class OmgClientBuilderTests
         Assert.That(client.PastebinClient, Is.Not.Null);
         Assert.That(client.StatuslogClient, Is.Not.Null);
         Assert.That(client.PurlsClient, Is.Not.Null);
+        Assert.That(client.AccountClient, Is.Not.Null);
+        Assert.That(client.DirectoryClient, Is.Not.Null);
 
         Assert.That(client.Token, Is.EqualTo(token));
         Assert.That(client.Url, Is.Not.Null);
@@ -129,6 +136,8 @@ public class OmgClientBuilderTests
         Assert.That(client.PastebinClient, Is.Not.Null);
         Assert.That(client.StatuslogClient, Is.Not.Null);
         Assert.That(client.PurlsClient, Is.Not.Null);
+        Assert.That(client.AccountClient, Is.Not.Null);
+        Assert.That(client.DirectoryClient, Is.Not.Null);
 
         Assert.That(client.Token, Is.EqualTo(provider.Token));
         Assert.That(client.Url, Is.Not.Null);
@@ -151,6 +160,8 @@ public class OmgClientBuilderTests
         Assert.That(client.PastebinClient, Is.Not.Null);
         Assert.That(client.StatuslogClient, Is.Not.Null);
         Assert.That(client.PurlsClient, Is.Not.Null);
+        Assert.That(client.AccountClient, Is.Not.Null);
+        Assert.That(client.DirectoryClient, Is.Not.Null);
 
         Assert.That(client.Token, Is.EqualTo(provider.Token));
         Assert.That(client.Url, Is.Not.Null);

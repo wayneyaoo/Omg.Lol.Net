@@ -25,6 +25,8 @@ internal class OmgLolClient : IOmgLolClient
 
     public IStatuslogClient StatuslogClient => this.statuslogClient.Value;
 
+    public IDirectoryClient DirectoryClient => this.directoryClient.Value;
+
     private readonly Lazy<AddressClient> addressClient;
 
     private readonly Lazy<ServiceClient> serviceClient;
@@ -38,6 +40,8 @@ internal class OmgLolClient : IOmgLolClient
     private readonly Lazy<StatuslogClient> statuslogClient;
 
     private readonly Lazy<AccountClient> accountClient;
+
+    private readonly Lazy<DirectoryClient> directoryClient;
 
     public OmgLolClient(IApiServerCommunicationHandler apiServerCommunicationHandler)
     {
@@ -78,6 +82,12 @@ internal class OmgLolClient : IOmgLolClient
         });
 
         this.accountClient = new Lazy<AccountClient>(() => new AccountClient(apiServerCommunicationHandler)
+        {
+            Token = this.Token,
+            Url = this.Url,
+        });
+
+        this.directoryClient = new Lazy<DirectoryClient>(() => new DirectoryClient(apiServerCommunicationHandler)
         {
             Token = this.Token,
             Url = this.Url,

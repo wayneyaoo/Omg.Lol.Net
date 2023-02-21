@@ -9,9 +9,9 @@ using Omg.Lol.Net.Models.Address;
 
 public sealed class AddressClient : IAddressClient
 {
-    public string Token { get; set; } = string.Empty;
+    public string Token { get; internal set; } = string.Empty;
 
-    public string Url { get; set; } = string.Empty;
+    public string Url { get; internal set; } = string.Empty;
 
     // TODO: url encode the address?
     private const string RetreiveAddressAvailabilityEndpoint = "/address/{0}/availability";

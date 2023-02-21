@@ -11,9 +11,9 @@ using Omg.Lol.Net.Models.Paste;
 
 public sealed class PastebinClient : IPastebinClient
 {
-    public string Token { get; set; } = string.Empty;
+    public string Token { get; internal set; } = string.Empty;
 
-    public string Url { get; set; } = string.Empty;
+    public string Url { get; internal set; } = string.Empty;
 
     private const string RetrieveASpecificPasteEndpoint = "/address/{0}/pastebin/{1}";
 

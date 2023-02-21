@@ -11,9 +11,9 @@ using Omg.Lol.Net.Models.Status;
 
 public sealed class StatuslogClient : IStatuslogClient
 {
-    public string Token { get; set; } = string.Empty;
+    public string Token { get; internal set; } = string.Empty;
 
-    public string Url { get; set; } = string.Empty;
+    public string Url { get; internal set; } = string.Empty;
 
     private const string RetrieveIndividualStatusEndpoint = "/address/{0}/statuses/{1}";
 

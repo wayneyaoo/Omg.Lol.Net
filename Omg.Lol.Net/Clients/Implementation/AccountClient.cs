@@ -12,9 +12,9 @@ using Omg.Lol.Net.Models.Items;
 
 public sealed class AccountClient : IAccountClient
 {
-    public string Token { get; set; } = string.Empty;
+    public string Token { get; internal set; } = string.Empty;
 
-    public string Url { get; set; } = string.Empty;
+    public string Url { get; internal set; } = string.Empty;
 
     private const string RetrieveAccountInformationEndpoint = "/account/{0}/info";
 

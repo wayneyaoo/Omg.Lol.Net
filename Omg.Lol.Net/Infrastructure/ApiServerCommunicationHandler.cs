@@ -87,6 +87,7 @@ internal class ApiServerCommunicationHandler : IApiServerCommunicationHandler
         var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         if (!response.IsSuccessStatusCode)
         {
+            // This probably means the server is down or malfunctional.
             var serverResponse = JsonConvert.DeserializeObject<CommonResponse<MessageItem>>(content);
             if (serverResponse is null)
             {

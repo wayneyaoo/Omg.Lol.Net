@@ -9,7 +9,7 @@ using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.Dns;
 using Omg.Lol.Net.Models.Items;
 
-public sealed class DnsClient : IDnsClient
+internal class DnsClient : IDnsClient
 {
     public string Token { get; internal set; } = string.Empty;
 

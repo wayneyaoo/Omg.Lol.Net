@@ -7,7 +7,7 @@ using Omg.Lol.Net.Infrastructure;
 using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.Directory;
 
-public class DirectoryClient : IDirectoryClient
+internal class DirectoryClient : IDirectoryClient
 {
     public string Token { get; internal set; } = string.Empty;
 

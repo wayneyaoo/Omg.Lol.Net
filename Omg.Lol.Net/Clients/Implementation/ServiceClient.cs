@@ -7,7 +7,7 @@ using Omg.Lol.Net.Infrastructure;
 using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.ServiceStatus;
 
-public sealed class ServiceClient : IServiceClient
+internal class ServiceClient : IServiceClient
 {
     public string Token { get; internal set; } = string.Empty;
 

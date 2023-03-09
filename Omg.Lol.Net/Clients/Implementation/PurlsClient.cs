@@ -9,7 +9,7 @@ using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.Items;
 using Omg.Lol.Net.Models.Purl;
 
-public sealed class PurlsClient : IPurlsClient
+internal class PurlsClient : IPurlsClient
 {
     public string Token { get; internal set; } = string.Empty;
 

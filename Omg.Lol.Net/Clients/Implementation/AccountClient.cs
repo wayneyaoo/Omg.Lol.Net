@@ -10,7 +10,7 @@ using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.Account;
 using Omg.Lol.Net.Models.Items;
 
-public sealed class AccountClient : IAccountClient
+internal class AccountClient : IAccountClient
 {
     public string Token { get; internal set; } = string.Empty;
 

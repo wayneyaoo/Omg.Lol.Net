@@ -9,7 +9,7 @@ using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.Items;
 using Omg.Lol.Net.Models.Status;
 
-public sealed class StatuslogClient : IStatuslogClient
+internal class StatuslogClient : IStatuslogClient
 {
     public string Token { get; internal set; } = string.Empty;
 

@@ -9,7 +9,7 @@ using Omg.Lol.Net.Infrastructure.Exceptions;
 using Omg.Lol.Net.Models;
 using Omg.Lol.Net.Models.Items;
 
-public sealed class ApiServerCommunicationHandler : IApiServerCommunicationHandler
+internal class ApiServerCommunicationHandler : IApiServerCommunicationHandler
 {
     private readonly Lazy<IHttpClient> httpClient;
 
@@ -87,6 +87,7 @@ public sealed class ApiServerCommunicationHandler : IApiServerCommunicationHandl
         var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         if (!response.IsSuccessStatusCode)
         {
+            // This probably means the server is down or malfunctional.
             var serverResponse = JsonConvert.DeserializeObject<CommonResponse<MessageItem>>(content);
             if (serverResponse is null)
             {

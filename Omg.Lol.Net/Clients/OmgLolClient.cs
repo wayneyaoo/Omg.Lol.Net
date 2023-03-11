@@ -4,6 +4,7 @@ using System;
 using Omg.Lol.Net.Clients.Abstract;
 using Omg.Lol.Net.Clients.Implementation;
 using Omg.Lol.Net.Infrastructure;
+using Omg.Lol.Net.Models.Now;
 
 internal class OmgLolClient : IOmgLolClient
 {
@@ -27,6 +28,8 @@ internal class OmgLolClient : IOmgLolClient
 
     public IDirectoryClient DirectoryClient => this.directoryClient.Value;
 
+    public INowClient NowClient => this.nowClient.Value;
+
     private readonly Lazy<AddressClient> addressClient;
 
     private readonly Lazy<ServiceClient> serviceClient;
@@ -42,6 +45,8 @@ internal class OmgLolClient : IOmgLolClient
     private readonly Lazy<AccountClient> accountClient;
 
     private readonly Lazy<DirectoryClient> directoryClient;
+
+    private readonly Lazy<NowClient> nowClient;
 
     public OmgLolClient(IApiServerCommunicationHandler apiServerCommunicationHandler)
     {
@@ -88,6 +93,12 @@ internal class OmgLolClient : IOmgLolClient
         });
 
         this.directoryClient = new Lazy<DirectoryClient>(() => new DirectoryClient(apiServerCommunicationHandler)
+        {
+            Token = this.Token,
+            Url = this.Url,
+        });
+
+        this.nowClient = new Lazy<NowClient>(() => new NowClient(apiServerCommunicationHandler)
         {
             Token = this.Token,
             Url = this.Url,

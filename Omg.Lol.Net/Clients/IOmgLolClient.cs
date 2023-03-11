@@ -20,4 +20,6 @@ public interface IOmgLolClient : IApiInfoCarrier
     public IStatuslogClient StatuslogClient { get; }
 
     public IDirectoryClient DirectoryClient { get; }
+
+    public INowClient NowClient { get; }
 }

@@ -181,14 +181,14 @@ public class PastebinClientTests
             Title = newPasteTitle,
         });
 
-        await Task.Delay(TimeSpan.FromSeconds(3));
+        await Task.Delay(TimeSpan.FromSeconds(5));
 
         // Verify that the paste is indeed created.
         var firstGetResponse = await this.pastebinClient.RetrieveASpecificPasteAsync("wy-test", newPasteTitle);
 
         var deleteReponse = await this.pastebinClient.DeletePasteAsync("wy-test", newPasteTitle);
 
-        await Task.Delay(TimeSpan.FromSeconds(3));
+        await Task.Delay(TimeSpan.FromSeconds(5));
 
         // Assert
         // Verify that the paste is indeed deleted.

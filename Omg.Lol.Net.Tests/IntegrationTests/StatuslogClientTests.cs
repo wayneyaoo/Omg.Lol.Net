@@ -178,7 +178,6 @@ public class StatuslogClientTests
     {
         // Arrange
         var randomToken = Guid.NewGuid().ToString();
-        var secondRandomToken = Guid.NewGuid().ToString();
         var content =
             $"Greetings from a bot 😀. Here's a random token: {randomToken}. If you still see this status after a few refreshes (within 20s), please contact @wy";
         var emoji = "😉";
@@ -192,7 +191,7 @@ public class StatuslogClientTests
                 Emoji = emoji,
             });
 
-        await Task.Delay(TimeSpan.FromSeconds(2));
+        await Task.Delay(TimeSpan.FromSeconds(4));
 
         var statusId = createResponse.Response.Id;
 
@@ -200,6 +199,7 @@ public class StatuslogClientTests
         CommonResponse<SingleStatus> secondGetResponse =
             await this.statuslogClient.RetrieveInvidualStatusAsync("wy-test", statusId);
 
+        var secondRandomToken = Guid.NewGuid().ToString();
         CommonResponse<StatusModified> updateResponse = await this.statuslogClient.UpdateStatusAsync(
             "wy-test",
             new StatusPatch()
@@ -209,14 +209,14 @@ public class StatuslogClientTests
                 Id = statusId,
             });
 
-        await Task.Delay(TimeSpan.FromSeconds(2));
+        await Task.Delay(TimeSpan.FromSeconds(3));
 
         // Verify update works.
         var thirdResponse = await this.statuslogClient.RetrieveInvidualStatusAsync("wy-test", statusId);
 
         CommonResponse<MessageItem> deleteResponse = await this.statuslogClient.DeleteStatusAsync("wy-test", statusId);
 
-        await Task.Delay(2);
+        await Task.Delay(TimeSpan.FromSeconds(3));
 
         var exception = Assert.ThrowsAsync<ApiResponseException>(async () =>
             await this.statuslogClient.RetrieveInvidualStatusAsync("wy-test", statusId));
@@ -273,6 +273,72 @@ public class StatuslogClientTests
     }
 
     [Test]
+    public async Task Create_Then_Delete_Status_Should_Work()
+    {
+        // Arrange
+        var randomToken = Guid.NewGuid().ToString();
+        var content =
+            $"Greetings from a bot 😀. Here's a random token: {randomToken}. If you still see this status after a few refreshes (within 20s), please contact @wy";
+        var emoji = "😉";
+
+        // Act
+        CommonResponse<StatusModified> createResponse = await this.statuslogClient.CreateStatusAsync(
+            "wy-test",
+            new StatusPost()
+            {
+                Content = content,
+                Emoji = emoji,
+            });
+
+        await Task.Delay(TimeSpan.FromSeconds(4));
+
+        var statusId = createResponse.Response.Id;
+
+        // Verify create works.
+        CommonResponse<SingleStatus> secondGetResponse =
+            await this.statuslogClient.RetrieveInvidualStatusAsync("wy-test", statusId);
+
+        await Task.Delay(TimeSpan.FromSeconds(4));
+
+        CommonResponse<MessageItem> deleteResponse = await this.statuslogClient.DeleteStatusAsync("wy-test", statusId);
+
+        await Task.Delay(TimeSpan.FromSeconds(4));
+
+        var exception = Assert.ThrowsAsync<ApiResponseException>(async () =>
+            await this.statuslogClient.RetrieveInvidualStatusAsync("wy-test", statusId));
+
+        // Assert
+        Assert.That(createResponse.Request.StatusCode, Is.EqualTo(200));
+        Assert.That(createResponse.Request.Success, Is.True);
+        Assert.That(createResponse.Response.Id, Is.Not.Empty);
+        Assert.That(createResponse.Response.Message, Is.Not.Empty);
+        Assert.That(createResponse.Response.Url, Is.Not.Empty);
+
+        // What the new status should look like
+        Assert.That(secondGetResponse.Request.StatusCode, Is.EqualTo(200));
+        Assert.That(secondGetResponse.Request.Success, Is.True);
+        Assert.That(secondGetResponse.Response.Message, Is.Not.Empty);
+        Assert.That(secondGetResponse.Response.Status.Address, Is.EqualTo("wy-test"));
+        Assert.That(secondGetResponse.Response.Status.RelativeTime, Is.Not.Empty);
+        Assert.That(secondGetResponse.Response.Status.Content, Contains.Substring(randomToken));
+        Assert.That(
+            secondGetResponse.Response.Status.Created,
+            Is.GreaterThanOrEqualTo(DateTimeOffset.UtcNow.ToUnixTimeSeconds() - 10));
+        Assert.That(secondGetResponse.Response.Status.Emoji, Is.EqualTo(emoji));
+        Assert.That(secondGetResponse.Response.Status.Id, Is.Not.Empty);
+
+        // what the API service says about the delation operation
+        Assert.That(deleteResponse.Request.StatusCode, Is.EqualTo(200));
+        Assert.That(deleteResponse.Request.Success, Is.True);
+        Assert.That(deleteResponse.Response.Message, Is.Not.Empty);
+
+        // the status should be gone
+        Assert.That(exception.StatusCode, Is.EqualTo(404));
+        Assert.That(exception.Success, Is.False);
+        Assert.That(exception.Message, Is.Not.Empty);
+    }
+
+    [Test]
     public async Task UpdateStatusBio_Should_Work()
     {
         // Arrange
@@ -304,6 +370,7 @@ public class StatuslogClientTests
         Assert.That(secondResponse.Request.StatusCode, Is.EqualTo(200));
         Assert.That(secondResponse.Request.Success, Is.True);
         Assert.That(secondResponse.Response.Message, Is.Not.Empty);
-        Assert.That(secondResponse.Response.Bio, Is.Not.Empty); // because of concurrent tests, the unix seconds might not be accurate (concurrent update). We only check for not empty here.
+        // because of concurrent tests, the unix seconds might not be accurate (concurrent update). We only check for not empty here.
+        Assert.That(secondResponse.Response.Bio, Is.Not.Empty);
     }
 }

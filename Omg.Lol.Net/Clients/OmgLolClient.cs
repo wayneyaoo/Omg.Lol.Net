@@ -29,6 +29,8 @@ internal class OmgLolClient : IOmgLolClient
 
     public INowClient NowClient => this.nowClient.Value;
 
+    public IWebClient WebClient => this.webClient.Value;
+
     private readonly Lazy<AddressClient> addressClient;
 
     private readonly Lazy<ServiceClient> serviceClient;
@@ -46,6 +48,8 @@ internal class OmgLolClient : IOmgLolClient
     private readonly Lazy<DirectoryClient> directoryClient;
 
     private readonly Lazy<NowClient> nowClient;
+
+    private readonly Lazy<WebClient> webClient;
 
     public OmgLolClient(IApiServerCommunicationHandler apiServerCommunicationHandler)
     {
@@ -98,6 +102,12 @@ internal class OmgLolClient : IOmgLolClient
         });
 
         this.nowClient = new Lazy<NowClient>(() => new NowClient(apiServerCommunicationHandler)
+        {
+            Token = this.Token,
+            Url = this.Url,
+        });
+
+        this.webClient = new Lazy<WebClient>(() => new WebClient(apiServerCommunicationHandler)
         {
             Token = this.Token,
             Url = this.Url,

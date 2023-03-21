@@ -4,7 +4,6 @@ using System;
 using Omg.Lol.Net.Clients.Abstract;
 using Omg.Lol.Net.Clients.Implementation;
 using Omg.Lol.Net.Infrastructure;
-using Omg.Lol.Net.Models.Now;
 
 internal class OmgLolClient : IOmgLolClient
 {

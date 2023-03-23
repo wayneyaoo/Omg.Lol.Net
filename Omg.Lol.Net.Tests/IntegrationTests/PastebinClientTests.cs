@@ -33,9 +33,7 @@ public class PastebinClientTests
     [SetUp]
     public void Setup()
     {
-        var mockFactory = Substitute.For<IHttpClientFactory>();
-        mockFactory.GetHttpClient().Returns(TestMaterial.HttpClient.Value);
-        this.pastebinClient = new PastebinClient(new ApiServerCommunicationHandler(mockFactory))
+        this.pastebinClient = new PastebinClient(new ApiServerCommunicationHandler(new TestMaterial.TestFactory()))
         {
             Url = Constants.API_SERVER_ADDRESS,
             Token = API_KEY,

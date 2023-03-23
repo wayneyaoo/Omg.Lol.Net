@@ -48,7 +48,7 @@ public class OmgClientBuilderTests
     {
         // Arrange
         var factory = Substitute.For<IHttpClientFactory>();
-        factory.GetHttpClient().Returns(TestMaterial.HttpClient.Value);
+        factory.GetHttpClient().Returns(new TestMaterial.ProxyClient());
 
         // Act
         IOmgLolClient client = OmgLolClientBuilder.Create(API_KEY, factory);
@@ -98,7 +98,7 @@ public class OmgClientBuilderTests
     {
         var token = Guid.NewGuid().ToString();
         var factory = Substitute.For<IHttpClientFactory>();
-        factory.GetHttpClient().Returns(TestMaterial.HttpClient.Value);
+        factory.GetHttpClient().Returns(new TestMaterial.ProxyClient());
 
         // Act
         IOmgLolClient client = await OmgLolClientBuilder.Create(() => Task.FromResult(token), factory);
@@ -125,7 +125,7 @@ public class OmgClientBuilderTests
     {
         var provider = new TestApiKeyProvider();
         var factory = Substitute.For<IHttpClientFactory>();
-        factory.GetHttpClient().Returns(TestMaterial.HttpClient.Value);
+        factory.GetHttpClient().Returns(new TestMaterial.ProxyClient());
 
         // Act
         IOmgLolClient client = await OmgLolClientBuilder.Create(provider, factory);

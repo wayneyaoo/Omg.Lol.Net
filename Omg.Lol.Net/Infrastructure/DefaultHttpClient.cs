@@ -8,26 +8,21 @@ using System.Threading.Tasks;
 
 public class DefaultHttpClient : IHttpClient
 {
-#pragma warning disable SA1401
-    internal static Lazy<HttpClient> HttpClient = null!;
-#pragma warning restore SA1401
-
     private const string BearerAuth = "Bearer";
+
+    private static Lazy<HttpClient> HttpClient = null!;
 
     public DefaultHttpClient()
     {
-        HttpClient ??= new (() =>
-        {
-            var ret = new HttpClient();
-            ret.DefaultRequestHeaders.UserAgent.Clear();
-            ret.DefaultRequestHeaders.Add("User-Agent", "Omg.Lol.Net SDK Client");
-            return ret;
-        });
+        HttpClient ??= new Lazy<HttpClient>(this.GetHttpClient);
     }
 
-    public DefaultHttpClient(HttpClient client)
+    protected virtual HttpClient GetHttpClient()
     {
-        HttpClient ??= new Lazy<HttpClient>(() => client);
+        var ret = new HttpClient();
+        ret.DefaultRequestHeaders.UserAgent.Clear();
+        ret.DefaultRequestHeaders.Add("User-Agent", "Omg.Lol.Net SDK Client");
+        return ret;
     }
 
     public async Task<HttpResponseMessage> RequestAsync(

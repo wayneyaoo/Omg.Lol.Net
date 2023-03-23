@@ -36,9 +36,7 @@ public class AccountClientTests
     [SetUp]
     public void Setup()
     {
-        var mockFactory = Substitute.For<IHttpClientFactory>();
-        mockFactory.GetHttpClient().Returns(TestMaterial.HttpClient.Value);
-        this.accountClient = new AccountClient(new ApiServerCommunicationHandler(mockFactory))
+        this.accountClient = new AccountClient(new ApiServerCommunicationHandler(new TestMaterial.TestFactory()))
         {
             Url = Constants.API_SERVER_ADDRESS,
             Token = API_KEY,

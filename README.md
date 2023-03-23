@@ -69,12 +69,38 @@ var response = await client.PurlsClient
 
 If you need to inject your instance of `HttpClient`, you can achieve this via
 
-- Create an implementation of interface `IHttpClient` to wrap your instance.
-- Create an implementation of interface `IHttpClientFactory` to return above instance.
+- Create a whole new implementation of interface `IHttpClient`, or inherit `DefaultHttpClient` then override `GetHttpClient` to return your instance. For example, this creates a custom `HttpClient` with proxy support.
+  
+  ```csharp
+  public class ProxyClient : DefaultHttpClient
+  {
+      protected override HttpClient GetHttpClient()
+          => new HttpClient(new HttpClientHandler()
+             {
+                  Proxy = new WebProxy("http://127.0.0.1:8080"),
+             })
+  }
+  ```
+  
+  
+- Create an implementation of interface `IHttpClientFactory` to return your implementation of `IHttpClient`.
+  
+  ```csharp
+  public class MyHttpClientFactory : IHttpClientFactory
+  {
+      public IHttpClient GetHttpClient() => new ProxyClient();
+  
+      // Or you can create a new implementation of IHttpClient as well.
+      //public IHttpClient GetHttpClient() => new MyNewHttpClient();
+  }
+  ```
+  
+  
 - When creating an `IOmgLolClient` with the builder, use another overload:
-    ```csharp
-    var client = OmgLolClientBuilder.Create("my-api-key", new MyHttpClientFactory());
-    ```
+  
+  ```csharp
+  var client = OmgLolClientBuilder.Create("my-api-key", new MyHttpClientFactory());
+  ```
 
 As creating an instance with the builder is likely to happen at the early stage of an application initialization, "
 injecting" your factory implementation is a bit cumbersome so the library doesn't bother doing so. You might still want

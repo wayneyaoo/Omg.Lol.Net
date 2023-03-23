@@ -39,6 +39,8 @@ public class OmgClientBuilderTests
         Assert.That(client.PurlsClient, Is.Not.Null);
         Assert.That(client.AccountClient, Is.Not.Null);
         Assert.That(client.DirectoryClient, Is.Not.Null);
+        Assert.That(client.NowClient, Is.Not.Null);
+        Assert.That(client.WebClient, Is.Not.Null);
     }
 
     [Test]

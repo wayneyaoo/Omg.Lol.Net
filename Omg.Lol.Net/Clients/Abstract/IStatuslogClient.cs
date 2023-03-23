@@ -12,8 +12,6 @@ public interface IStatuslogClient : IApiInfoCarrier
     /// <summary>
     /// Retrieve a single status belonging to an address with a status id.
     /// </summary>
-    /// <param name="address">The address the status belongs to.</param>
-    /// <param name="statusId">The status id.</param>
     /// <returns>A single status.</returns>
     public Task<CommonResponse<SingleStatus>> RetrieveInvidualStatusAsync(
         string address,
@@ -23,8 +21,6 @@ public interface IStatuslogClient : IApiInfoCarrier
     /// <summary>
     /// Delete a status belonging to a given account with a status id.
     /// </summary>
-    /// <param name="address">The address the status belongs to.</param>
-    /// <param name="statusId">The status id.</param>
     /// <returns>A message confirming the deletion.</returns>
     // Todo: undocumented API
     public Task<CommonResponse<MessageItem>> DeleteStatusAsync(
@@ -35,7 +31,6 @@ public interface IStatuslogClient : IApiInfoCarrier
     /// <summary>
     /// Retrieve the latest status of a given account.
     /// </summary>
-    /// <param name="address">The address.</param>
     /// <returns>The lastest (single) status.</returns>
     // todo: Undocumented api
     public Task<CommonResponse<SingleStatus>> RetrieveLatestStatusAsync(
@@ -45,7 +40,6 @@ public interface IStatuslogClient : IApiInfoCarrier
     /// <summary>
     /// Retrieve all statuses belonging to an address.
     /// </summary>
-    /// <param name="address">The address.</param>
     /// <returns>All statuses this address posted.</returns>
     public Task<CommonResponse<MultipleStatuses>> RetrieveEntireStatusesAsync(
         string address,
@@ -68,6 +62,15 @@ public interface IStatuslogClient : IApiInfoCarrier
     public Task<CommonResponse<StatusModified>> CreateStatusAsync(
         string address,
         StatusPost status,
+        CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Create status via a single line string.
+    /// </summary>
+    /// <returns></returns>
+    public Task<CommonResponse<StatusModified>> CreateStatusAsync(
+        string address,
+        string status,
         CancellationToken cancellationToken = default);
 
     // Todo: inconsistency in doc and postman collection.

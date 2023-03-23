@@ -33,9 +33,7 @@ public class DnsClientTests
     [SetUp]
     public void Setup()
     {
-        var mockFactory = Substitute.For<IHttpClientFactory>();
-        mockFactory.GetHttpClient().Returns(TestMaterial.HttpClient.Value);
-        this.dnsClient = new DnsClient(new ApiServerCommunicationHandler(mockFactory))
+        this.dnsClient = new DnsClient(new ApiServerCommunicationHandler(new TestMaterial.TestFactory()))
         {
             Url = Constants.API_SERVER_ADDRESS,
             Token = API_KEY,

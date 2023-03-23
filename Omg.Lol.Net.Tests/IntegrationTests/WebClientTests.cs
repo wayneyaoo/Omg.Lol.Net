@@ -33,9 +33,7 @@ public class WebClientTests
     [SetUp]
     public void Setup()
     {
-        var mockFactory = Substitute.For<IHttpClientFactory>();
-        mockFactory.GetHttpClient().Returns(TestMaterial.HttpClient.Value);
-        this.webClient = new WebClient(new ApiServerCommunicationHandler(mockFactory))
+        this.webClient = new WebClient(new ApiServerCommunicationHandler(new TestMaterial.TestFactory()))
         {
             Url = Constants.API_SERVER_ADDRESS,
             Token = API_KEY,

@@ -11,9 +11,7 @@ public class DirectoryClientTests
     [Test]
     public async Task GetAddressDirectory_Should_Work()
     {
-        var mockFactory = Substitute.For<IHttpClientFactory>();
-        mockFactory.GetHttpClient().Returns(TestMaterial.HttpClient.Value);
-        var directoryClient = new DirectoryClient(new ApiServerCommunicationHandler(mockFactory))
+        var directoryClient = new DirectoryClient(new ApiServerCommunicationHandler(new TestMaterial.TestFactory()))
         {
             Url = Constants.API_SERVER_ADDRESS,
             Token = string.Empty,

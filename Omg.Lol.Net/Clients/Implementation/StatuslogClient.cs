@@ -97,6 +97,17 @@ internal class StatuslogClient : IStatuslogClient
                 cancellationToken)
             .ConfigureAwait(false);
 
+    public async Task<CommonResponse<StatusModified>> CreateStatusAsync(
+        string address,
+        string status,
+        CancellationToken cancellationToken = default)
+        => await this.apiServerCommunicationHandler.PostAsync<CommonResponse<StatusModified>>(
+                this.Url + string.Format(CreateStatusEndpoint, address),
+                JsonConvert.SerializeObject(new { status, }),
+                this.Token,
+                cancellationToken)
+            .ConfigureAwait(false);
+
     public async Task<CommonResponse<StatusModified>> UpdateStatusAsync(
         string address,
         StatusPatch status,

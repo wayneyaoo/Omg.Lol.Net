@@ -22,4 +22,6 @@ public interface IOmgLolClient : IApiInfoCarrier
     public IDirectoryClient DirectoryClient { get; }
 
     public INowClient NowClient { get; }
+
+    public IWebClient WebClient { get; }
 }
